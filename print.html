@@ -1,0 +1,126 @@
+<?doctyle html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<style type="text/css">
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+article {
+	width: 48%;
+	padding: 10px;
+}
+
+.game {
+    border: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+code {
+	background: #eee;
+	padding: 0.2em 0.5em;
+}
+
+code.command {
+	background: #00026B;
+	color: #f3f30f;
+	padding: 0.2em 0.5em;
+}
+
+p {
+	line-height: 1.4;
+}
+
+pre {
+	background: #eee;
+	padding: 0.5em 0.5em;
+}
+</style>
+</head>
+<body>
+	<article>
+	<h1>Need Input</h1>
+
+	<p>Type in the following program, pressing [return] after typing each line:</p>
+	<pre>
+10 PRINT "What is your name
+20 INPUT a$
+30 PRINT "Nice to meet you " a$</pre>
+	<p>Each line starts with its line number. If you make a mistake on a line you can edit it using its line number. Type <code class="command">EDIT 10</code> to edit line 10, then press [return] to finish editing.</p>
+	<p>When you've finished typing your program type <code class="command">LIST</code> to show your program. If you've made any mistakes, edit the line that contains the mistake. If you've added extra lines you can remove them using the line number, for example <code class="command">DELETE 10</code>.</p>
+	<p>Run your program by typing <code class="command">RUN</code>.
+
+<h2>Print</h2>
+
+	<p>The <code>PRINT</code> command prints whatever comes after it. On line 10 we gave <code>PRINT</code> a <em>string literal</em>, that is a <em>string</em> of text surrounded by <code>""</code>s.
+		You could type whatever you like inside those quotes. Type <code class="command">EDIT 10</code> now to change the message that gets printed out. Type <code class="command">RUN</code> to run your new program.</p>
+
+	<p>If you type a line that doesn't start with a line number, the computer runs that command immediately rather than adding it to your program to run later. Let's try printing a few different things to see how versatile the <code>PRINT</code> command is.</p>
+
+	<pre>
+PRINT 42
+PRINT "Basic"
+PRINT 3.14
+PRINT 8*7</pre>
+
+	<p>The last line above multiplies two numbers. Try printing a few more equations. You can use <code>*</code> for multiply, <code>+</code> and <code>-</code> as usual, and <code>/</code> for divide. You can also use <code>()</code> for more complex equations.</p>
+
+<h2>Uppercase lowercase</h2>
+
+<p>This programming language is called BASIC. It doesn't matter whether you use uppercase letters or lowercase letters to type its commands, like <code>PRINT</code>, or variables, like <code>a$</code>; BASIC treats uppercase, lowercase or mixed-case as the same. Where it <em>does</em> matter is in strings.</p>
+
+<pre>
+print "It matters in strings
+input A$
+print "But not in variables
+print a$
+</article>
+
+	<canvas class="game" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+
+  <script type="text/javascript">
+    var Module = {
+        preRun: [ ],
+        postRun: [ ],
+        print: (function() {
+            return function(text) {
+                text = Array.prototype.slice.call(arguments).join(' ');
+                console.log(text);
+            };
+        })(),
+        printErr: function(text) {
+            text = Array.prototype.slice.call(arguments).join(' ');
+            console.error(text);
+        },
+        canvas: (function() {
+            var canvas = document.getElementById('canvas');
+            canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
+            return canvas;
+        })(),
+        setStatus: function(text) { },
+        monitorRunDependencies: function(left) { },
+    };
+    window.onerror = function(event) {
+        console.log("onerror: " + event);
+    };
+  </script>
+  <script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>
