@@ -1,0 +1,51 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+article {
+	width: 48%;
+	padding: 10px;
+}
+
+.game {
+    border: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+code {
+	background: #eee;
+	padding: 0.2em 0.5em;
+}
+
+code.command {
+	background: #00026B;
+	color: #f3f30f;
+	padding: 0.2em 0.5em;
+}
+
+p {
+	line-height: 1.4;
+}
+
+pre {
+	background: #eee;
+	padding: 0.5em 0.5em;
+}
+
+h1 {
+    font-size: 180%;
+}
