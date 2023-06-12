@@ -7,10 +7,14 @@
 <link href="lesson.css" rel="stylesheet">
 </head>
 <body>
-	<article>
-	<h1>Need Input</h1>
+<article>
+    <h1>Welcome</h1>
+    <p>On the righthand side of the screen is your computer. You can only interact with this computer by typing as it doesn't use a mouse.</p>
+    <p>On this page we're going to learn how to enter programs into this computer.</p>
 
-	<p>Type in the following program, pressing [return] after typing each line:</p>
+	<h2>Need Input</h2>
+
+	<p>Type in the following program, including the line numbers, pressing [return] after typing each line:</p>
 	<pre>
 10 PRINT "What is your name
 20 INPUT a$
@@ -45,34 +49,34 @@ print "But not in variables
 print a$
 </article>
 
-	<canvas class="game" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<canvas class="game" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
 
-  <script type="text/javascript">
-    var Module = {
-        preRun: [ ],
-        postRun: [ ],
-        print: (function() {
-            return function(text) {
-                text = Array.prototype.slice.call(arguments).join(' ');
-                console.log(text);
-            };
-        })(),
-        printErr: function(text) {
+<script type="text/javascript">
+var Module = {
+    preRun: [ ],
+    postRun: [ ],
+    print: (function() {
+        return function(text) {
             text = Array.prototype.slice.call(arguments).join(' ');
-            console.error(text);
-        },
-        canvas: (function() {
-            var canvas = document.getElementById('canvas');
-            canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
-            return canvas;
-        })(),
-        setStatus: function(text) { },
-        monitorRunDependencies: function(left) { },
-    };
-    window.onerror = function(event) {
-        console.log("onerror: " + event);
-    };
-  </script>
-  <script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+            console.log(text);
+        };
+    })(),
+    printErr: function(text) {
+        text = Array.prototype.slice.call(arguments).join(' ');
+        console.error(text);
+    },
+    canvas: (function() {
+        var canvas = document.getElementById('canvas');
+        canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
+        return canvas;
+    })(),
+    setStatus: function(text) { },
+    monitorRunDependencies: function(left) { },
+};
+window.onerror = function(event) {
+    console.log("onerror: " + event);
+};
+</script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
 </body>
 </html>
