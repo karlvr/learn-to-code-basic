@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC - Introducing variables</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Introducing variables</h1>
+		<p>When you write programs you often need to give the computer
+			information to work on. The computer stores this
+			information in spaces called variables
+			in its memory.</p>
+		<center><img src="usborne/simple-basic/img/05boxes.jpg"></center>
+		<p>The spaces in the computer's memory are rather like the empty boxes in this picture.
+			When you give the computer a piece of information you have to give it a label too.
+			The computer puts information in a space and labels it.
+			A labelled space is called a variable.</p>
+	
+		<p>Type in the following line:</p>
+<pre>
+N=999
+</pre>
+		<p>The letter <code>N</code> is the label for the variable, and <code>999</code> is the value to
+		be stored in a variable labelled <code>N</code>.</p>
+		<p>You might sometimes see this written <code>LET N=999</code>. You can leave out the <code>LET</code> on this computer.</p>
+
+		<p>Now let’s <code class="command">PRINT</code> out the value in the variable <code>N</code>:</p>
+<pre>
+PRINT N
+</pre>
+		<p>You will see the number <code>999</code> printed out.</p>
+		<p>Try changing the value stored in <code>N</code> by typing the first line again, but
+		this time with a different number, and then <code class="command">PRINT</code> it out again.</p>
+
+		<h2>Strings</h2>
+		<p>In BASIC, words, letters and symbols are called <em>strings</em>. When you store a string in a variable,
+			you must type the string in quotes. A variable
+			that contains a string is called a <em>string variable</em>.
+			Its label always has a dollar sign at the end.</p>
+<pre>
+U$="UGLY MONSTER"
+R$="RUBBISH"
+S$="/&SILLY SYMBOLS!!"
+</pre>
+		<p>String variable labels always end with a <code>$</code>. Variables that <em>don’t</em>
+		end with a <code>$</code>, like <code>N</code> above, are <em>numeric</em> variables. They
+		store numbers such as <code>42</code> or even <code>3.14</code>.</p>
+
+		<h2>Using <code class="command">PRINT</code> with variables</h2>
+		<p>To make the computer display the information stored in a
+			variable, you use <code class="command">PRINT</code> followed by the variable name.
+			Try running the program below to see how this works.</p>
+<pre>
+10 CLS
+20 N=99
+30 B$="BANANAS"
+40 PRINT N
+50 PRINT B$
+</pre>
+
+		<h2>Naming variables</h2>
+		<p>It's a good idea to give a variable a name that will
+			help you remember what it contains.</p>
+		<center><img src="usborne/simple-basic/img/05naming.jpg"></center>
+		<p>Letters of the alphabet and words are usually used as names for variables.
+			You can also use numbers, as long as the variable name <em>starts</em> with a letter.</p>
+
+		<footer>
+			<a href="simple05.html" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
+
+<section>
+	<article class="solo">
+	</article>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>

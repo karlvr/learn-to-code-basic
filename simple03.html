@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC - Doing sums</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Doing sums</h1>
+		<p>The command <code class="command">PRINT</code>, followed by a sum, tells the computer to work out the sum and put the answer on
+			the screen. Try the <code class="command">PRINT</code> commands shown below. The commands have no line
+			numbers, so the computer carries out each one straight away.</p>
+		<center><img src="usborne/simple-basic/img/04sums.jpg"></center>
+
+		<h2>Hours program</h2>
+		<p>This program makes the computer
+			work out the number of hours in a year.
+			Line 30 does the calculation. It multiplies the number of days in a year, by the number of hours in a day.</p>
+		<p>Let’s type it in and <code class="command">RUN</code> it now.</p>
+<pre>
+10 CLS
+20 PRINT "THERE ARE "
+30 PRINT 365*24
+40 PRINT "HOURS IN"
+50 PRINT " A YEAR"</pre>
+		<center><img src="usborne/simple-basic/img/04hours.jpg"></center>
+		
+		<footer>
+			<a href="simple04.html" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
+
+<section>
+	<article class="solo">
+	</article>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>

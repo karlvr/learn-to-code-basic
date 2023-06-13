@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC - Introducing variables</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Words and variables together</h1>
+		<p>You often need to display words next to the contents of
+			a variable. To do this you use <code class="command">PRINT</code> followed by the
+			variable name and the words, separated by a semicolon. In BASIC a semicolon tells the
+			computer to display the next piece of information on the same line.</p>
+		<p>A semicolon looks like <code>;</code>.</p>
+<pre>
+10 CLS
+20 N=7
+30 PRINT N; "SLIMY SLUGS"
+40 PRINT "ATE, ";N;" SOGGY SANDWICHES"
+</pre>
+		<p>The spaces <em>inside</em> the quotes on line 40 make the computer leave a space on the screen
+			between the words and the contents of the variable. You can also leave spaces <em>outside</em>
+		the quotes, but the computer ignores them.</p>
+
+		<footer>
+			<a href="simple06.html" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
+
+<section>
+	<article class="solo">
+	</article>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>

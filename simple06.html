@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC - Introducing variables</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Sums with variables</h1>
+		<p>You can make the computer do sums with numbers stored in variables. Try the
+			program below. It makes the computer add and multiply the numbers stored in the variables
+			<code>A</code> and <code>B</code>.</p>
+<pre>
+10 CLS
+20 A=2
+30 B=5
+40 PRINT A+B
+50 PRINT A*B
+</pre>
+		<p>Answers displayed on their own are not very useful. If you add these <code class="command">PRINT</code>
+			lines to the program, you can make the computer display the sum next to the answer.</p>
+<pre>
+35 PRINT A;"+";B;"=";
+45 PRINT A;"x";B;"=";
+</pre>
+		<p>Notice that you can also use a <code>;</code> at the end of a line to tell the computer not to start a new line with the next <code class="command">PRINT</code> command.</p>
+
+		<center><img src="usborne/simple-basic/img/06monsters.jpg"></center>
+		<h2>Cake program</h2>
+		<p>Four monsters have been given 12 cakes and they want to share them out equally.
+			The program below will solve the monsters problem. The variable <code>C</code> contains
+			the number of cakes. <code>M</code> is the number of monsters and <code>A</code>
+			is the answer.</p>
+<pre>
+10 CLS
+20 C=12
+30 M=4
+40 A=C/M
+50 PRINT "THERE ARE ";A;" CAKES"
+60 PRINT "FOR EACH MONSTER"
+</pre>
+		<p>Run the program to find
+			out how many cakes each
+			monster will get.</p>
+		<footer>
+			<a href="simple06.html" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
+
+<section>
+	<article class="solo">
+	</article>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>
