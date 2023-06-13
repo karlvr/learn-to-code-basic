@@ -30,6 +30,10 @@ article.solo {
 	margin: 0 auto;
 }
 
+article img {
+	max-width: 100%;
+}
+
 .game.right {
 	border: 0;
 	position: sticky;
