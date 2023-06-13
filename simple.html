@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+<section>
+	<article class="hero">
+		<img src="usborne/simple-basic/img/01cover.jpg">
+	</article>
+</section>
+
+<section>
+	<article class="solo">
+		<h1>What is BASIC?</h1>
+		<p>To make a computer do things you need to give it instructions in a language it understands.
+			BASIC, the language which most home computers used in the 1980’s,
+			is quite like English, with some special words
+			and symbols.</p>
+		<p>If you give a computer instructions in ordinary English
+			it will not understand what you mean.</p>
+		<p>Giving a computer instructions is called programming and a list of instructions is called a program.
+			Below you can see what a program in BASIC looks like.</p>
+		<center><img src="usborne/simple-basic/img/01about.jpg"></center>
+	</article>
+</section>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>First commands in BASIC</h1>
+		<p>On the right-hand side of the screen is your computer. You use this computer with the keyboard. It doesn’t use a mouse!</p>
+		<h2>Using PRINT</h2>
+		<p>To make the computer display a word on the screen, you
+			type <code class="command">PRINT</code>, followed by the word inside quotes. Type carefully, as mistakes will
+			confuse the computer.</p>
+		<p>Try typing the line below into the computer and then to make the computer carry out the command, press the RETURN key.</p>
+		<pre>
+PRINT "HELLO"</pre>
+		<p>When you press RETURN, the computer puts the word on the screen. Try using <code class="command">PRINT</code> to make your computer display other words and phrases!</p>
+
+		<h2>Clearing the screen</h2>
+		<p>To clear the screen we type the <code class="command">CLS</code> command.</p>
+		<p>Try typing that into the computer now to clear the screen.</p>
+
+		<footer>
+			<a href="simple02.html" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>

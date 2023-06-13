@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		
+		<h1>Giving the computer a program</h1>
+		<p>We’re going to learn how to enter programs into this computer.</p>
+		<p>Let’s go!</p>
+		<p>Carefully type in the lines below, including the line numbers, pressing the RETURN key after typing each line:</p>
+	
+		<pre>
+	10 PRINT "HELLO"
+	20 PRINT "WHAT'S YOUR NAME?"
+	30 INPUT N$
+	40 PRINT "HELLO "; N$</pre>
+		<aside>
+			<p>If the computer says <em>Syntax error</em> or anything strange happens, press the RETURN key, check that you’ve typed exactly what appears above including the line numbers.
+			You can always reload the page to reset the computer and start again.</p>
+		</aside>
+		<p>Each line starts with a line number. If you make a mistake on a line you can edit it using its line number. Enter <code class="command">EDIT 10</code> to edit line 10, then press the RETURN key to finish editing.</p>
+		<aside><p>"Enter" means type the command and then press the RETURN key to <em>enter</em> the command.</p></aside>
+		
+		<p>When you’ve finished typing your program, enter <code class="command">LIST</code> to show your program. If you’ve made any mistakes, edit the line that contains the mistake. If you’ve added extra lines you can remove them using the line number, for example <code class="command">DELETE 10</code>.</p>
+		<p>Run your program by entering <code class="command">RUN</code>.
+	
+		<p>To start your program over again, enter <code class="command">NEW</code>.</p>
+	</article>
+	</div>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>

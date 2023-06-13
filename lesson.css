@@ -2,28 +2,50 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-article {
-	width: 48%;
-	padding: 10px;
+section {
+	margin: 5em 0;
+	clear: both;
 }
 
-.game {
-    border: 0;
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    display: block;
-    image-rendering: optimizeSpeed;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -o-crisp-edges;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: optimize-contrast;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated;
-    -ms-interpolation-mode: nearest-neighbor;
+section.side-by-side > * {
+	width: 50%;
+}
+section.side-by-side article {
+	padding: 0 2em;
+}
+
+article.hero {
+	margin: 0 auto;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+article.hero footer {
+	margin-top: 2em;
+}
+
+article.solo {
+	width: 60%;
+	max-width: 30em;
+	margin: 0 auto;
+}
+
+.game.right {
+	border: 0;
+	position: sticky;
+	top: 0;
+	float: right;
+	height: 100vh;
+	overflow: hidden;
+	display: block;
+	image-rendering: optimizeSpeed;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: optimize-contrast;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+	-ms-interpolation-mode: nearest-neighbor;
 }
 
 code {
@@ -32,8 +54,9 @@ code {
 }
 
 code.command {
-	background: #00026B;
-	color: #f3f30f;
+	/* background: #00127C; */
+	/* color: #f3f30f; */
+	background: #eee;
 	padding: 0.2em 0.5em;
 }
 
@@ -47,5 +70,35 @@ pre {
 }
 
 h1 {
-    font-size: 180%;
+	font-size: 180%;
+}
+
+aside {
+	border: 1px solid yellow;
+	background: lightyellow;
+	padding: 1em;
+	width: 60%;
+	margin: 0 auto;
+}
+
+article footer button, article footer .button {
+	font-size: 120%;
+}
+
+article.hero footer button, article.hero footer .button {
+	font-size: 200%;
+}
+
+a.button, a.button:active, a.button:visited {
+	color: #333;
+	text-decoration: none;
+	border: 1px solid #333;
+	border-radius: 14px;
+	padding: 0.15em 0.6em;
+	display: inline-block;
+}
+
+a.button:active {
+	background-color: black;
+	color: white;
 }
