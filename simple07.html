@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<title>Simple BASIC - Introducing variables</title>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<link href="lesson.css" rel="stylesheet">
+</head>
+<body>
+
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Using INPUT</h1>
+		<p>Another way to give the computer information is with the command <code class="command">INPUT</code>.
+			<code class="command">INPUT</code> lets you put
+			information into the
+			computer’s memory while
+			the program is running. This means that you can
+			give the computer different information,
+			each time you
+			run a program.</p>
+		<p>You always put a variable name after <code class="command">INPUT</code>.
+			When the computer meets <code class="command">INPUT</code> it
+			waits for you to type something and stores it in the named variable.</p>
+		<p>This computer tells you it is waiting by displaying a question mark.</p>
+<pre>
+10 CLS
+20 PRINT "WHAT IS YOUR NAME?"
+30 INPUT N$
+40 PRINT "HOW OLD ARE YOU?"
+50 INPUT A
+60 CLS
+70 PRINT N$; " IS "; A
+80 PRINT "YEARS OLD"
+</pre>
+
+<aside>
+	The line <code>INPUT N$</code> tells the computer to expect words because the variable name ends with <code>$</code>,
+	while the line <code>INPUT A</code> tells the computer to expect a number.
+</aside>
+
+<h2>Computer calculator</h2>
+<p>See if you can fill in the missing lines in this program. The program makes your computer work as a calculator. You type in two numbers and the computer adds them
+	together and puts the answer on the screen. You need to fill in lines 30 and 50 with
+<code class="command">INPUT</code> commands.
+</p>
+<aside>Remember to enter <code class="command">NEW</code> before typing the next program to clear the previous one.</aside>
+<pre>
+10 CLS
+20 PRINT "TYPE A NUMBER"
+30
+40 PRINT "TYPE ANOTHER NUMBER"
+50
+60 C=A+B
+70 PRINT A;"+";B;"=";C
+</pre>
+
+<aside>
+	The line <code>C=A+B</code> tells the computer to add the two numbers and store the answer in <code>C</code>
+</aside>
+
+<h2>Message program puzzle</h2>
+<p>Here is another program puzzle. When you run the program the computer asks for a message. Then it asks who the message is for and who is sending it.</p>
+<p>The computer stores this information in variables <code>A$</code>,
+	<code>B$</code> and <code>M$</code>. Then it clears the screen and displays the
+	message.</p>
+<p>Can you complete the <code class="command">PRINT</code> commands in lines 90 and 110
+	so the computer displays the names stored in <code>A$</code> and <code>B$</code>, with the message?</p>
+<pre>
+10 CLS
+20 PRINT "WHAT IS THE MESSAGE?"
+30 INPUT M$
+40 PRINT "WHO IS IT FOR?"
+50 INPUT AS
+60 PRINT "WHO IS IT FROM?"
+70 INPUT B$
+80 CLS
+90 PRINT
+100 PRINT M$
+110 PRINT
+</pre>
+		<footer>
+			<a href="simple08.html" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
+
+<script src="js/cpc.js"></script>
+<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
+</body>
+</html>
