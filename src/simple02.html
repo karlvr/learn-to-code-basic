@@ -1,15 +1,7 @@
-<!doctype html>
-<html>
-<head>
-<title>Simple BASIC</title>
-<meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-<link href="lesson.css" rel="stylesheet">
-</head>
-<body>
-
+---
+layout: base.html
+title: Simple HTML - Giving the computer a program
+---
 <section class="side-by-side">
 	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
 	<div>
@@ -27,7 +19,7 @@
 	40 PRINT "HELLO "; N$</pre>
 		<aside>
 			<p>If the computer says <em>Syntax error</em> or anything strange happens, press the RETURN key, check that you’ve typed exactly what appears above including the line numbers.
-			You can always reload the page to reset the computer and start again.</p>
+			You can always reset the computer using the emulator's System menu, and then start again.</p>
 		</aside>
 		<p>Each line starts with a line number. If you make a mistake on a line you can edit it using its line number. Enter <code class="command">EDIT 10</code> to edit line 10, then press the RETURN key to finish editing.</p>
 		<aside><p>When I say "enter" I mean type the command and then press the RETURN key to <em>enter</em> the command.</p></aside>
@@ -47,7 +39,7 @@
 		<p>If a program does not run properly, you have probably made a mistake in it. Even a
 			typing error can stop a program running. Mistakes
 			in programs are called bugs.</p>
-		<center><img src="usborne/simple-basic/img//03mistakes.jpg"></center>
+		<center><img src="../img/usborne/simple-basic/img//03mistakes.jpg"></center>
 		<p>If a <em>Syntax error</em> occurs in your program you’ll automatically start editing the line with the mistake. Try fixing the line, press RETURN to finish editing, and <code class="command">RUN</code> your program again to see if you’ve fixed the bug.</p>
 		<p>You can always view your whole program by entering <code class="command">LIST</code>, and then <code class="command">EDIT #</code> or <code class="command">DELETE #</code> any line (replace <code>#</code> with the line number</code>).</p>
 	</article>
@@ -63,12 +55,7 @@
 <section>
 	<article class="solo">
 		<footer>
-			<a href="simple03.html" class="button">Next</a>
+			<a href="../simple03" class="button">Next</a>
 		</footer>
 	</article>
 </section>
-
-<script src="js/cpc.js"></script>
-<script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script>
-</body>
-</html>
