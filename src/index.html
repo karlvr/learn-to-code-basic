@@ -1,10 +1,11 @@
 ---
 layout: base.html
 title: Simple HTML
+base_uri: .
 ---
 <section>
 	<article class="hero">
-		<img src="../img/usborne/simple-basic/img/01cover.jpg">
+		<img src="{{ base_uri }}/img/usborne/simple-basic/img/01cover.jpg">
 	</article>
 </section>
 
@@ -15,7 +16,7 @@ title: Simple HTML
 			I learned to program with: BASIC. And we’re going to use materials from the
 			beautiful <a href="https://usborne.com/nz/books/computer-and-coding-books">Usborne books</a> that I learned from!
 		</p>
-		<center><img src="../img/usborne/simple-basic/img/01intro.jpg"></center>
+		<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/01intro.jpg"></center>
 	</article>
 </section>
 
@@ -30,7 +31,7 @@ title: Simple HTML
 			it will not understand what you mean.</p>
 		<p>Giving a computer instructions is called programming and a list of instructions is called a program.
 			Below you can see what a program in BASIC looks like.</p>
-		<center><img src="../img/usborne/simple-basic/img/01about.jpg"></center>
+		<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/01about.jpg"></center>
 	</article>
 </section>
 
@@ -54,7 +55,7 @@ PRINT "HELLO"</pre>
 		<p>Try typing that into the computer now to clear the screen.</p>
 
 		<footer>
-			<a href="../simple02" class="button">Next</a>
+			<a href="{{ base_uri }}/simple02" class="button">Next</a>
 		</footer>
 	</article>
 	</div>
