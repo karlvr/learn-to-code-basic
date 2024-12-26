@@ -9,13 +9,13 @@ base_uri: ..
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-<link href="{{ base_uri }}/css/lesson.css" rel="stylesheet">
+<link href="{{ base_uri }}/css/lesson.css?v={% random %}" rel="stylesheet">
 </head>
 <body>
 
 {{ content }}
 
-	<script src="{{ base_uri }}/js/cpc.js"></script>
+	<script src="{{ base_uri }}/js/cpc.js?v={% random %}"></script>
 	<!-- <script async type="text/javascript" src="https://floooh.github.io/tiny8bit/cpc.js"></script> -->
 	<script async type="text/javascript" src="{{ base_uri }}/js/floooh/cpc-ui.js"></script>
 </body>

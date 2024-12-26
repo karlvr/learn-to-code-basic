@@ -6,4 +6,6 @@ export default function(eleventyConfig) {
 		"static/css": "css",
 		"static/img": "img",
 	})
+
+	eleventyConfig.addShortcode("random", function() { return Math.random() })
 }
