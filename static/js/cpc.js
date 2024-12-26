@@ -43,3 +43,9 @@ var Module = {
 window.onerror = function(event) {
 	console.log("onerror: " + event)
 }
+
+$(function() {
+	$('pre').on('dblclick', function(ev) {
+		Module._webapi_input(this.innerText)
+	})
+})
