@@ -40,7 +40,7 @@ article footer {
 	position: sticky;
 	top: 0;
 	float: right;
-	height: 100vh;
+	height: 80vh;
 	overflow: hidden;
 	display: block;
 	image-rendering: optimizeSpeed;
