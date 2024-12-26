@@ -5,6 +5,23 @@ and the BASIC programming language that I learnt to code with.
 
 * [Print](https://karlvr.github.io/learn-to-code-basic/print.html)
 
+## Developing
+
+The pages exist in the [`src`](./src) directory. The static website is built using [`eleventy`](https://www.11ty.dev/).
+
+Setup:
+
+```shell
+nvm use
+pnpm install
+```
+
+Then run the dev server:
+
+```shell
+pnpm dev
+```
+
 ## Floooh
 
 We use the floooh project, which provides the emulator for the CPC6128. A compiled version of the emulator
