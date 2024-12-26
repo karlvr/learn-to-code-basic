@@ -1,0 +1,95 @@
+---
+layout: base.html
+title: Simple HTML - Fun with PRINT
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Fun with PRINT</h1>
+<pre>
+10 CLS
+20 PRINT TAB(5); "I AM GREAT"
+30 PRINT TAB(8); "BUT SLIMY SID"
+40 PRINT TAB(12); "IS SNEAKY"
+</pre>
+
+<aside>
+	The command <code class="command">PRINT TAB</code> tells the computer to leave some spaces before a word or number on the screen.
+</aside>
+
+<h2>PRINT TAB program</h2>
+
+<pre>
+10 CLS
+20 PRINT "HOW MANY SPACES"
+30 PRINT "DO YOU WANT TO LEAVE?"
+40 INPUT N
+50 PRINT TAB(N); "HELLO"
+</pre>
+
+<p>In this program you tell the computer how many spaces to leave before the word HELLO. The computer stores the number in the variable <code>N</code>,
+and then uses <code>N</code> with the <code class="command">PRINT TAB</code> command.</p>
+<p>Note that <code>TAB</code> actually starts counting at 1 so <code>TAB(1)</code> starts at the beginning of the line, and you need to use <code>TAB(2)</code> to start with a space.
+Try running the program above multiple times to see this.</p>
+
+<h2>Leaving empty lines</h2>
+
+<pre>
+10 CLS
+20 PRINT "HELLO"
+30 PRINT
+40 PRINT
+50 PRINT
+60 PRINT "GOODBYE"
+</pre>
+
+<p>To make the computer leave
+	empty lines on the screen
+	you use PRINT by itself.
+	This program makes the
+	computer leave three
+	empty lines between the
+	two messages.</p>
+
+<h2>Birthday program puzzle</h2>
+
+<pre>
+10 CLS
+20 PRINT:PRINT:PRINT
+30 PRINT:PRINT:PRINT
+40 PRINT TAB( ); "HAPPY BIRTHDAY"
+50 PRINT TAB( ); "TO YOU"
+60 PRINT TAB( ); "*****"
+</pre>
+
+<p>This program displays a birthday
+	message. Before you run it, you
+	must put the numbers in the
+	brackes after the <code class="command">PRINT TAB</code>
+	commands. Experiment with different
+	numbers to see if you can put the message in
+	the middle of the screen.</p>
+
+<aside>This program uses colons <code>:</code> to put several commands on one line. You can always put several commands on one line if you separate them with colons.</aside>
+
+<h2>Making columns</h2>
+<pre>
+10 CLS
+20 PRINT:PRINT:PRINT
+30 PRINT "DAY", "MY LUNCH"
+40 PRINT
+50 PRINT "MONDAY", "CHOCOLATE"
+60 PRINT "TUESDAY", "HAMBURGERS"
+70 PRINT "WEDNESDAY" "ICECREAM"
+80 PRINT "THURSDAY", "SAUSAGES"
+90 PRINT "FRIDAY", "LOLLIPOPS"
+100 PRINT "SATURDAY", "CHIPS"
+110 PRINT "SUNDAY" "POPCORN"
+</pre>
+		<footer>
+			<a href="{{ base_uri }}/simple08" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
