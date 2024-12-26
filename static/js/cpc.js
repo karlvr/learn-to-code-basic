@@ -6,6 +6,7 @@ var Module = {
 			const i = setInterval(function() {
 				if (Module._webapi_ready()) {
 					clearInterval(i)
+					Module._webapi_dbg_connect() // This disables the blinking speaker icon!
 					Module._webapi_load_snapshot(0);
 
 					canvas.style.opacity = ''
@@ -29,7 +30,7 @@ var Module = {
 	},
 	canvas: (function() {
 		var canvas = document.getElementById('canvas');
-		canvas.style.opacity = '20%'
+		canvas.style.opacity = '0%'
 		canvas.addEventListener("webglcontextlost", function(e) { alert('FIXME: WebGL context lost, please reload the page'); e.preventDefault(); }, false);
 		return canvas;
 	})(),
