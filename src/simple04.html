@@ -25,6 +25,12 @@ N=999
 		be stored in a variable labelled <code>N</code>.</p>
 		<p>You might sometimes see this written <code>LET N=999</code>. You can leave out the <code>LET</code> on this computer.</p>
 
+		<aside>
+			<p>Note that here we're not writing a program, because there are no line numbers. This means that the computer immediately
+				runs the instruction we've typed.
+			</p>
+		</aside>
+
 		<p>Now let’s <code class="command">PRINT</code> out the value in the variable <code>N</code>:</p>
 <pre>
 PRINT N
@@ -57,6 +63,7 @@ S$="/&SILLY SYMBOLS!!"
 30 B$="BANANAS"
 40 PRINT N
 50 PRINT B$
+RUN
 </pre>
 
 		<h2>Naming variables</h2>
@@ -65,6 +72,16 @@ S$="/&SILLY SYMBOLS!!"
 		<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/05naming.jpg"></center>
 		<p>Letters of the alphabet and words are usually used as names for variables.
 			You can also use numbers, as long as the variable name <em>starts</em> with a letter.</p>
+		
+		<p>So rather than the single letter variable names we used above, it is easier to understand if we use longer names like:</p>
+
+<pre>
+10 CLS
+20 QUANTITY=99
+30 FRUIT$="BANANAS"
+40 PRINT QUANTITY; FRUIT$
+RUN
+</pre>
 
 		<footer>
 			<a href="{{ base_uri }}/simple05" class="button">Next</a>

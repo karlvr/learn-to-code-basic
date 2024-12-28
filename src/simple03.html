@@ -14,6 +14,7 @@ title: Simple HTML - Doing sums
 PRINT 2+2
 PRINT 2*3
 PRINT 6/2
+PRINT 2-4
 </pre>
 		<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/04sums.jpg"></center>
 
@@ -27,12 +28,31 @@ PRINT 6/2
 20 PRINT "THERE ARE "
 30 PRINT 365*24
 40 PRINT "HOURS IN"
-50 PRINT " A YEAR"</pre>
+50 PRINT " A YEAR"
+RUN
+</pre>
 		<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/04hours.jpg"></center>
-		
-		<footer>
-			<a href="{{ base_uri }}/simple04" class="button">Next</a>
-		</footer>
-	</article>
+
+		<p>Notice that there are spaces in the strings we're printing above, which look like they're intended for the message
+			to be printed out on one line, but because <code class="command">PRINT</code> outputs on a new line, the spaces
+			aren't really necessary.
+		</p>
+		<p>You can modify a <code class="command">PRINT</code> so it doesn't end with a new line by putting a semicolon after it. Try editing
+		your program using <code class="command">EDIT</code> followed by a line number, to add semicolons to the end of lines 
+		20, 30 and 40, then run it again.</p>
+		<p>Your code should end up looking like this:</p>
+<pre>
+10 CLS
+20 PRINT "THERE ARE ";
+30 PRINT 365*24;
+40 PRINT "HOURS IN";
+50 PRINT " A YEAR"
+RUN
+</pre>
+
+			<footer>
+				<a href="{{ base_uri }}/simple04" class="button">Next</a>
+			</footer>
+		</article>
 	</div>
 </section>
