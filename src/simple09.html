@@ -1,0 +1,90 @@
+---
+layout: base.html
+title: Simple HTML - Comparing things
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Comparing things</h1>
+<p>You can make a computer compare pieces of
+	information and then do different things according to
+	the results. To do this you use the commands <code class="command">IF</code> and
+	<code class="command">THEN</code>. You can find out how <code class="command">IF</code> and <code class="command">THEN</code> work in the
+	program below.</p>
+<pre>
+NEW
+10 CLS
+20 PRINT "TYPE IN TWO NUMBERS"
+30 INPUT A
+40 INPUT Z
+50 IF A=Z THEN PRINT "EQUAL"
+60 IF A&lt;>Z THEN PRINT "NOT EQUAL"
+RUN
+</pre>
+
+<p>
+	In this program the <code class="command">IF</code> and <code class="command">THEN</code> commands
+	make the computer compare the numbers
+	stored in the variables A and Z. If the
+	numbers are the same the computer displays
+	the message "EQUAL". If the numbers are
+	different, the message is "NOT EQUAL".
+</p>
+
+<aside>
+	The <code>=</code> symbol compares the numbers to see if they are the same. The <code>&lt;&gt;</code> symbol compare the numbers to see if they are different.
+</aside>
+
+<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/09compare.png"></center>
+	</article>
+	
+	<article>
+		<h2>Comparing words</h2>
+		<p>
+You can also use <code class="command">IF</code> and <code class="command">THEN</code> to
+make the computer compare words.
+Try running the program below.
+The <code class="command">IF</code> and <code class="command">THEN</code> commands make
+the computer compare the
+names stored in <code>S$</code> and
+<code>N$</code>, to see if they are the
+same or not.
+		</p>
+<pre>
+NEW
+10 CLS
+20 S$="SLIMY SID"
+30 PRINT "WHAT'S YOUR NAME?"
+40 INPUT N$
+50 IF N$<>S$ THEN PRINT "I CAN'T STAND MONSTERS CALLED "; N$
+60 IF N$=S$ THEN PRINT "HELLO ";S$;" NICE TO MEET YOU"
+RUN
+</pre>
+</article>
+<article>
+	<h2>Age program</h2>
+
+<p>
+When you type in this program, put your own age in line 20. Then let a friend run the
+program. The computer will work out whether your friend is older, younger or the same age as you.
+</p>
+
+<pre>
+NEW
+10 CLS
+20 A=11
+30 PRINT "I AM";A;" YEARS OLD"
+40 PRINT "HOW OLD ARE YOU?"
+50 INPUT B
+60 IF A=B THEN PRINT "WE'RE THE SAME AGE!"
+70 IF A>B THEN PRINT "I'M OLDER THAN YOU"
+80 IF A&lt;B THEN PRINT "I'M YOUNGER THAN YOU"
+RUN
+</pre>
+		<footer>
+			<a href="{{ base_uri }}/simple10" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
