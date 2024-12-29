@@ -1,0 +1,101 @@
+---
+layout: base.html
+title: Simple HTML - Random numbers
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Random numbers</h1>
+
+<p>
+When you throw dice it is hard to guess,
+or predict, what numbers you will get.
+Unpredictable numbers like these are
+called random numbers.
+Below you can find out how
+to make a computer produce random
+numbers. The command is quite
+complicated, but it is useful
+in all sorts of programs.
+</p>
+
+<pre>
+PRINT INT(RND*10+1)
+</pre>
+
+<p>This produces a random number between 1 and 10.</p>
+
+<h3>Displaying random numbers</h3>
+<p>
+	Here is a simple random
+	number program to try. Line
+	40 tells the computer to pick
+	a number between 1 and 20
+	and display it on the screen.
+	Run the program a few
+	times. The computer will
+	pick a new number each
+	time.
+</p>
+<pre>
+NEW
+10 CLS
+20 PRINT "HERE IS A NUMBER"
+30 PRINT "BETWEEN 1 AND 20"
+40 PRINT INT(RND*20+1)
+RUN
+</pre>
+
+<aside><p>You can also write <code>RND</code> as <code>RND(1)</code>. If you write <code>RND(0)</code> you'll actually get back the previous random number that was generated!</p></aside>
+
+<h3>How does <code>RND</code> work?</h3>
+<p>
+To complete the instruction
+you need to multiply by the
+number of numbers the
+computer can choose from,
+and add the lowest number it can pick.
+</p>
+<p>
+For example, to make the computer pick
+numbers from 1 to 6, like a
+dice, you need the
+instruction below.
+</p>
+<pre>
+PRINT INT(RND*6+1)
+</pre>
+<p>
+<center><img src="{{ base_uri }}/img/usborne/simple-basic/img/12random.png"></center>
+</p>
+</article>
+<article>
+	<h2>Lucky draw program</h2>
+<p>
+	The monster gang are having a lucky draw.
+	They have sold 30 tickets, numbered from 1
+	to 30, and they want the computer to pick the
+	winning number. The program below
+	will make the cmputer do this, but it is not
+	complete. See if you can <strong>fill in the missing
+	numbers in line 20</strong>. This is the line that tells
+	the computer to pick a random number
+	between 1 and 30.
+</p>
+
+<pre>
+NEW
+10 CLS
+20 W = INT(RND * ?? + ??)
+30 PRINT "HELLO MONSTERS"
+40 PRINT "THE LUCKY WINNER"
+50 PRINT "IS NUMBER";W
+RUN
+</pre>
+		<footer>
+			<a href="{{ base_uri }}/simple13" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
