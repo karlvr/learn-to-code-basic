@@ -1,0 +1,225 @@
+---
+layout: base.html
+title: Simple HTML - Making loops
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1>Making loops</h1>
+
+<p>
+	A loop makes a computer
+	do something, such as
+	display a message, over
+	and over again. To make a
+	loop in a program, you use
+	the commands <code class="command">FOR</code>, <code class="command">TO</code>
+	and <code class="command">NEXT</code>.
+</p>
+
+<h2>Uglymug loop</h2>
+<pre>
+10 CLS
+20 FOR K=1 TO 5
+30 PRINT "HELLO UGLYMUG"
+40 NEXT K
+</pre>
+
+<p>
+The loop in this program
+begins with the <code class="command">FOR</code>, <code class="command">TO</code>
+command in line 20. It tells
+the computer how many
+times to repeat the <code class="command">PRINT</code>
+command. The command,
+<code class="command">NEXT</code>, in line 40 tells the
+computer to loop back and
+carry out the <code class="command">PRINT</code>
+command again.
+</p>
+
+<h2>How a loop works</h2>
+<p>
+	A loop is rather like a race where
+	the runner has to go round the
+	track several times. Each
+	time the computer
+	carries out the
+	instruction in a loop, it
+	is like running one lap
+	of the race.
+</p>
+<pre>
+NEW
+10 CLS
+20 FOR J = 1 TO 6
+30 PRINT "HELLO"
+40 NEXT J
+RUN
+</pre>
+
+<p>
+	In this loop program, the
+	computer uses the variable <code>J</code>
+	to keep count of the laps. <code>J</code> is called the "loop variable".
+	At the beginning, the number
+	in <code>J</code> is 1. Each time the computer goes round the loop, the number in <code>J</code> goes up
+	by 1 until it reaches 6. Then
+	the loop is finished.
+</p>
+
+<h3>Looking inside a loop</h3>
+<p>This program lets you look inside a loop, so
+	you can see the computer keeping count of
+	the laps.</p>
+<pre>
+NEW
+10 CLS
+20 FOR L=1 TO 20
+30 PRINT "LAP ";L
+40 NEXT L
+RUN
+</pre>
+
+<h3>Loop puzzle!</h3>
+
+<p>Can you complete this program, so the
+	computer displays your name ten times.
+	You need to fill in the numbers in line 20,
+	and put your name in quotes after the
+	<code class="command">PRINT</code> command in line 30.</p>
+
+<pre>
+NEW
+10 CLS
+20 FOR J= TO
+30 PRINT
+40 NEXT J
+RUN
+</pre>
+</article>
+
+<article>
+	<h2>Loopy programs</h2>
+	<p>Here are some more ways of using loops in programs.</p>
+
+	<h3>Counting program</h3>
+<p>Loops are very useful for
+	making a computer count.
+	Try this program, which
+	makes the computer count up to any number you like.
+	When you run the program,
+	you type in the number you
+	want the computer to count to.</p>
+<pre>
+NEW
+10 CLS
+20 PRINT "WHAT NUMBER SHALL"
+30 PRINT "I COUNT TO?"
+40 INPUT N
+50 FOR K=1 TO N
+60 PRINT K
+70 NEXT K
+RUN
+</pre>
+
+<h3>Different ways of counting</h3>
+<p>
+	You can change the way the
+	computer counts. For
+	instance, you can make it
+	count in jumps. To do this,
+	you use the command
+	<code class="command">STEP</code> followed by a number.
+	The program below makes
+	the computer count in steps
+	of 5. Try running it.
+</p>
+<pre>
+NEW
+10 CLS
+20 FOR L=0 TO 30 STEP 5
+30 PRINT L
+40 NEXT L
+RUN
+</pre>
+
+<h3>Countdown</h3>
+<p><code class="command">STEP</code> with a minus number
+	makes the computer count
+	backwards. Try this
+	countdown program to see
+	how it works.</p>
+<pre>
+NEW
+10 CLS
+20 PRINT "COUNTDOWN"
+30 FOR J=10 TO 1 STEP -1
+40 PRINT J
+50 NEXT J
+60 PRINT "BLAST OFF!"
+RUN
+</pre>
+
+<h3>Making the computer wait</h3>
+<p>
+	A loop with no instructions inside it makes
+	the computer pause for a moment. It is called
+	a delay loop. In the program below, the delay
+	loop in lines 30 and 40 makes the computer
+	pause before it displays the second message.
+	You can alter the length of the pause by
+	changing the second number in the <code class="command">FOR</code>, <code class="command">TO</code>
+	command. Have a go at shortening or
+	lengthening the pause in the
+	program.
+</p>
+<pre>
+10 CLS
+20 PRINT "HELLO EVERYBODY"
+30 FOR K=1 TO 1000
+40 NEXT K
+50 PRINT "HELLO AGAIN"
+</pre>
+</article>
+
+<article>
+<h2>Using the loop variable</h2>
+<p>This program makes the
+	computer display the nine-
+	times table. The loop variable,
+	<code>K</code>, is used both for counting
+	the loops, and for doing the
+	sum inside the loop.</p>
+<pre>
+NEW
+10 CLS
+20 FOR K=1 TO 12
+30 LET A = K*9
+40 PRINT K;" x 9 =";A
+50 NEXT K
+RUN
+</pre>
+
+<p>
+In this next program the computer
+uses the loop variable, <code>J</code>, as the
+number for the <code class="command">PRINT TAB</code>
+command. This means that each time the computer repeats
+the loop it leaves one more space before the word HELLO.
+</p>
+<pre>
+NEW
+10 CLS
+20 FOR J=1 TO 10
+30 PRINT TAB(J); "HELLO"
+40 NEXT J
+RUN
+</pre>
+		<footer>
+			<a href="{{ base_uri }}/simple12" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
