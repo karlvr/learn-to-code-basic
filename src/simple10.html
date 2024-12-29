@@ -1,0 +1,123 @@
+---
+layout: base.html
+title: Simple HTML - IF and THEN programs
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		<h1><code class="command">IF</code> and <code class="command">THEN</code> programs</h1>
+
+<p>
+You can make a computer do all sorts of things after an
+<code class="command">IF</code> and <code class="command">THEN</code> command. For instance, you can tell it to
+jump to another program line using the command
+<code class="command">GOTO</code>. You can also make it stop the program.
+</p>
+
+<h2>Using <code class="command">GOTO</code></h2>
+
+<p>
+In this program you have to
+guess how many cakes Slimy
+Sid has eaten. If your guess is wrong, the <code class="command">GOTO</code> command
+makes the computer jump back
+to line 50 so you can have
+another go. The computer
+will go on doing this until
+you get the answer right.
+</p>
+
+<pre>
+NEW
+10 CLS
+20 LET C=17
+30 PRINT "GUESS HOW MANY CAKES"
+40 PRINT "SLIMY SID HAS EATEN?"
+50 INPUT G
+60 IF G<>C THEN GOTO 50
+70 PRINT "YOU'VE GUESSED IT!"
+RUN
+</pre>
+
+<aside><p>Line 60 sends the computer back to line 50 if your guess is wrong.</p></aside>
+
+<h3>Improving the program</h3>
+
+<p>
+	The cake program would be
+	clearer if the computer told
+	you when your guess was
+	wrong. You can do this on
+	most computers, by putting
+	a <code class="command">PRINT</code> command after
+	<code class="command">THEN</code> in line 60.
+</p>
+<p>Try typing in this version of line
+	60. See what difference it makes to
+	the program.</p>
+<pre>
+60 IF G<>C THEN PRINT "WRONG": GOTO 50
+</pre>
+<aside><p>Both <code class="command">PRINT</code> and <code class="command">GOTO</code>
+	must be on the same
+	line as <code class="command">IF</code> and <code class="command">THEN</code>.
+	You separate them
+	with a colon.</p></aside>
+</article>
+
+<article>
+	<h2><code class="command">IF</code> and <code class="command">THEN</code> with <code class="command">STOP</code></h2>
+<p>
+This password program uses the command <code>STOP</code> after <code>IF</code> and <code>THEN</code>. It tells the computer to stop the
+program if you type in the wrong password. Most computers display a message
+when they stop a program. This lets you know what line the program has stopped at.
+</p>
+<pre>
+NEW
+10 CLS
+20 P$="BAKED BEANS"
+30 PRINT "WHAT IS THE PASSWORD?"
+40 INPUT A$
+50 IF A$<>P$ THEN STOP
+60 PRINT "CORRECT"
+70 PRINT "WELCOME, FRIEND"
+RUN
+</pre>
+<aside><p>Line 20 is the password. It is stored in the variable <code>P$</code>.</p></aside>
+<p>Can you guess the password correctly? Remember that strings are case-sensitive so you'll need to enter the password using the same uppercase letters as it appears in the program (if you entered it like that).
+	Remember you can always use <code class="command">LIST</code> to list your program.
+</p>
+</article>
+
+<article>
+	<h2>Maths machine</h2>
+	<p>
+	Try this program. When you
+	run it, you give the computer
+	two numbers. Then you tell it
+	whether to add or multiply
+	them by typing <code>A</code> or <code>M</code>.
+	Lines 80 and 90 use <code>IF</code> and <code>THEN</code> to make the computer do the calculation
+	you asked for; storing the answer in <code>Z</code>.
+<pre>
+NEW
+10 CLS
+20 PRINT "'GIVE ME TWO NUMBERS"
+30 INPUT X: INPUT Y
+40 PRINT "SHALL I ADD"
+50 PRINT "OR MULTIPLY?"
+60 PRINT "(TYPE A OR M)"
+70 INPUT R$
+80 IF R$="'A" THEN Z=X+Y
+90 IF R$="M" THEN Z=X*Y
+100 PRINT "THE ANSWER IS " ;Z
+RUN
+</pre>
+<aside><p>Notice that we've used a <code>:</code> to put the two <code>INPUT</code> commands on the same line of the program.</p></aside>
+		<footer>
+			<a href="{{ base_uri }}/simple10" class="button">Next</a>
+		</footer>
+	</article>
+	</div>
+</section>
