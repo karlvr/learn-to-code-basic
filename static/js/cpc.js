@@ -12,8 +12,10 @@ var Module = {
 					canvas.style.opacity = ''
 
 					setInterval(function() {
-						Module._webapi_save_snapshot(0);
-					}, 5000)
+						if (Module.autoSnapshot) {
+							Module._webapi_save_snapshot(0);
+						}
+					}, 30000)
 				}
 			}, 1)
 		}
@@ -38,6 +40,7 @@ var Module = {
 		console.log('status', text)
 	},
 	monitorRunDependencies: function(left) { },
+	autoSnapshot: true,
 }
 
 window.onerror = function(event) {
