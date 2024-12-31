@@ -1,3 +1,6 @@
 [submodule "floooh-workspace/chips-test"]
 	path = floooh-workspace/chips-test
 	url = git@github.com:karlvr/chips-test.git
+[submodule "floooh-workspace/chips"]
+	path = floooh-workspace/chips
+	url = git@github.com:karlvr/chips.git
