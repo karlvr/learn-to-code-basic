@@ -55,5 +55,5 @@ The build will download a bunch of dependencies into the workspace if this is a 
 To use the version you just built:
 
 ```shell
-cp ../fips-deploy/chips-test/wasm-ninja-release/cpc* ../../js/floooh/
+cp ../fips-deploy/chips-test/wasm-ninja-release/cpc* ../../static/js/floooh/
 ```
