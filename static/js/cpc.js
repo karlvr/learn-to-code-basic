@@ -7,7 +7,12 @@ var Module = {
 				if (Module._webapi_ready()) {
 					clearInterval(i)
 					Module._webapi_dbg_connect() // This disables the blinking speaker icon!
-					Module._webapi_load_snapshot(0);
+
+					if (typeof window.onCpcLoad === 'function') {
+						window.onCpcLoad();
+					} else {
+						Module._webapi_load_snapshot(0);
+					}
 
 					canvas.style.opacity = ''
 
