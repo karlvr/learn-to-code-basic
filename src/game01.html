@@ -14,6 +14,9 @@ title: Amstrad CPC 6128 - Bustout
 	have to type this in yourself, and then fix your typos. Lucky for you we've loaded it already
 	and run it.
 </p>
+<pre>
+RUN"bustout
+</pre>
 <p>
 	Try playing for a minute or two. When you're ready to get into the code, press the Escape key twice to
 	break out of the program.
@@ -31,16 +34,30 @@ title: Amstrad CPC 6128 - Bustout
 		<p>This computer has 16 different "inks" it can set, and 27 different colours it can set them to.
 		The <code class="command">INK</code> command takes two numbers; the first is the the ink number to set, and the second is the colour to set it to.
 	The <code class="command">PEN</code> command chooses which "ink" colour to use.</p>
-		<p>Scroll down to the bottom of the page for the colour chart and an example.</p>
+		<p>Check out the <a href="#colour-chart">colour chart</a> below for more detail and an example.</p>
 	</li>
 	<li>Add an extra line of yellow bricks. Hint: look at lines 140 and 150 and try typing the commands on those lines one at a time to see what they do.
 		<p>The <code class="command">LOCATE</code> command moves the cursor to the X, Y coordinate given. <code>LOCATE 2,3</code> moves the cursor to the 2nd column
 		on the 3rd row of the screen. When you next <code class="command">PRINT</code> this is where your text will appear.</p>
 	</li>
+	<li>Add two extra lines of the white bricks. Hint: look at line 160 and remember your loops!</li>
+	<li>Change the shape of the bricks to something else. Check out the <a href="#graphics-character-set">graphics character set</a>
+	below, and learn more about the <code>STRING$</code> function.</li>
+	<li>Make your paddle wider. It's currently 4 characters wide, let's make it 8 characters wide. This mission will be split across multiple parts as we improve this change!</li>
+	<li>Note that you can move your wider paddle too far to the right of the screen! Prevent your paddle from moving too far to the right.
+		<p>You will need to know the <code class="command">INKEY(k)</code> function. It takes a key code as an argument and returns 0 if that
+		key is currently pressed. Take a look at the <a href="#keyboard-codes">keyboard key codes</a> chart.</p>
+		<p>You will also need to understand what the <code>bx</code> variable is used for. You've already seen where the paddle is drawn (as you changed it in the previous
+		mission), so take a look at how <code>bx</code> is used there.</p>
+	</li>
+	<li>Finally note that even though your paddle is wider, and no longer goes off the right edge of the screen, you still can't catch
+		the ball on the right hand side of your paddle! The ball thinks your paddle is still 4 characters wide.
+	</li>
 </ol>
 
 <p>
-	The game's program is listed below. Or you can <code class="command">LIST</code> it in the emulator.
+	The game's program is listed below. You can also <code class="command">LIST</code> it in the emulator, if you've already run it,
+	or after you've loaded it using <code>LOAD"BUSTOUT</code>.
 </p>
 <pre>
 10 'BUSTOUT by ALEXANDER MARTIN
@@ -62,7 +79,7 @@ title: Amstrad CPC 6128 - Bustout
 170 bx=9
 180 lives=5:score=0
 190 PEN 1:GOSUB 680:CLEAR INPUT
-200 IF INKEY$<>CHR$(32) AND JOY(0)<16 THEN 200
+200 IF INKEY$&lt;>CHR$(32) AND JOY(0)&lt;16 THEN 200
 210 LOCATE 11,23:PRINT SPACE$(20):LOCATE 1,24:PRINT SPACE$(40);
 220 GOSUB 690:GOSUB 660:GOTO 280
 230 '
@@ -79,11 +96,11 @@ title: Amstrad CPC 6128 - Bustout
 340 x1=x+xa:y1=y+ya
 350 IF x1=3 OR x1=38 THEN xa =-xa
 360 GOSUB 540
-370 IF y1=24 AND x1>bx+1 AND x1<bx+6 THEN ya=-ya:y1=y1-2:SOUND 130,44,8,7,1,1:a=((x>bx+5)OR(x<bx+2)):IF a=-1 THEN xa=xa*a:x1=x1+xa:y1=y1+1
+370 IF y1=24 AND x1>bx+1 AND x1&lt;bx+6 THEN ya=-ya:y1=y1-2:SOUND 130,44,8,7,1,1:a=((x>bx+5)OR(x&lt;bx+2)):IF a=-1 THEN xa=xa*a:x1=x1+xa:y1=y1+1
 380 IF y1=25 THEN LOCATE x,y:PRINT" ":GOTO 500
 390 GOSUB 250
 400 t=TEST((16*x1)-1,-(16*y1)-1)
-410 IF t<>0 THEN ya=-ya:xz=x1:yz=y1:y1=y1+ya:GOSUB 590:IF t=2 THEN score=score+10:GOSUB 660
+410 IF t&lt;>0 THEN ya=-ya:xz=x1:yz=y1:y1=y1+ya:GOSUB 590:IF t=2 THEN score=score+10:GOSUB 660
 420 IF t=3 THEN score=score+20:GOSUB 660
 430 IF t=1 THEN score=score+5:GOSUB 660
 440 IF y1=1 THEN ya=1
@@ -97,7 +114,7 @@ title: Amstrad CPC 6128 - Bustout
 520 '
 530 '
 540 IF (INKEY(8)=0 OR INKEY(74)=0) AND bx>2 THEN bx=bx-2:RETURN
-550 IF (INKEY(1)=0 OR INKEY(75)=0) AND bx<32 THEN bx=bx+2:RETURN
+550 IF (INKEY(1)=0 OR INKEY(75)=0) AND bx&lt;32 THEN bx=bx+2:RETURN
 560 RETURN
 570 '
 580 '
@@ -116,7 +133,7 @@ title: Amstrad CPC 6128 - Bustout
 
 </article>
 
-<article>
+<article id="colour-chart">
 	<h2>Colour chart</h2>
 	<p>This colour reference is reproduced from the Amstrad CPC 6128 manual! The numbers shown here are the colours
 		that you can supply as the second number to the <code class="command">INK</code> command.
@@ -134,12 +151,75 @@ INK 1,24
 </pre>
 	<center><img src="{{ base_uri }}/img/cpc/color-chart.png"></center>
 </article>
+
+<article id="graphics-character-set">
+	<h2>BASIC graphics character set</h2>
+	<p>This computer can display 255 different characters. Some of them are letters, numbers and punctuation. Some of them are
+		"control characters", which we'll ignore for the moment, and some of them are useful shapes that you can use in games.
+		Bustout uses several of the standard graphics characters to draw the game.
+	</p>
+	<p>The <code class="command">STRING$(n, c)</code> function returns a string containing <code>n</code> copies of the character with
+	the code <code>c</code>. Usually you use it with <code class="command">PRINT</code> in order to print the string on the screen.</p>
+	<p>Take a look at the guide below, which is a screenshot from the computer manual showing the characters that Bustout uses. Note that
+		each character is listed first with its base 10 character code (which we will use), and then with its base 16 (hexadecimal) and finally
+		its binary character code.
+	</p>
+	<p>
+		Try changing the number of characters (<code>n</code>) or the character code (<code>c</code>), re-run the program and see what happens.
+	</p>
+	<p>You can test printing any character number using either of the commands below:</p>
+<pre>
+PRINT CHR$(144)
+PRINT STRING$(5, 144)
+</pre>
+	<center><img src="{{ base_uri }}/img/cpc/bustout-chars.png"></center>
+</article>
+
+<article id="keyboard-codes">
+	<h2>Keyboard key codes</h2>
+	<p>Each key on the keyboard has a code number that you can use with the <code>INKEY(k)</code> function, to test if the key
+	is being pressed. This is common in most games as you have to have controls!</p>
+	<p>This graphic represents the CPC6128 keyboard, which is similar but not the same as your computer's keyboard. For the
+		most part it's probably the same. The table below the chart shows the keys that Bustout uses. Key codes from 72 are for a
+		joystick, so you can ignore them.
+	</p>
+	<center><img src="{{ base_uri }}/img/cpc/keyboard-codes.png"></center>
+	<table border="1" cellpadding="5">
+		<thead>
+			<tr>
+				<th>Key code</th>
+				<th>Key name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>0</td>
+				<td>Up</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Down</td>
+			</tr>
+			<tr>
+				<td>8</td>
+				<td>Left</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Right</td>
+			</tr>
+			<tr>
+				<td>47</td>
+				<td>Spacebar</td>
+			</tr>
+		</tbody>
+	</table>
+</article>
 	</div>
 </section>
 
 <script>
 window.onCpcLoad = function() {
 	Module._webapi_load_file("../example/dsk/bustout.dsk")
-	Module._webapi_input("run\"bustout\n")
 }
 </script>
