@@ -133,24 +133,7 @@ RUN"bustout
 
 </article>
 
-<article id="colour-chart">
-	<h2>Colour chart</h2>
-	<p>This colour reference is reproduced from the Amstrad CPC 6128 manual! The numbers shown here are the colours
-		that you can supply as the second number to the <code class="command">INK</code> command.
-	</p>
-	<p>Try typing the following, to set your "pen" to use ink 1 (this is the default, so it's not usually necessary) and then to change the
-		colour of ink 1.</p>
-<pre>
-PEN 1
-INK 1,3
-</pre>
-	<p>This changes ALL of the text that was written with ink 1 to red!</p>
-	<p>To change it back to normal:</p>
-<pre>
-INK 1,24
-</pre>
-	<center><img src="{{ base_uri }}/img/cpc/color-chart.png"></center>
-</article>
+{% include "colour-chart" %}
 
 <article id="graphics-character-set">
 	<h2>BASIC graphics character set</h2>
