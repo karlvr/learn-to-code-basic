@@ -1,0 +1,224 @@
+---
+layout: base.html
+title: Amstrad CPC 6128 - Hangman
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		
+		<h1>Hangman</h1>
+<pre>
+RUN"hangman
+</pre>
+
+<p>
+	There are lots of new BASIC keywords and other strange code in this game, so when we're reading the program
+	we need to read around anything we don’t yet understand.
+</p>
+<p>
+	First play the game so you get the feel for it, then try some of these missions.
+</p>
+
+<h2>Missions</h2>
+<ol>
+	<li>
+		Change the background of the game to mauve and the border to bright magenta.
+		<br>
+		<small>Hint: I’ve included a colour chart below the program listing.</small>
+	</li>
+	<li>Print out the secret word on the screen so you can cheat!</li>
+	<li>
+		What are all those <code class="command">SYMBOL</code> commands at the start of the program? Let’s remove them to see what changes!
+		<br>
+		<small>Hint: you can delete a range of lines using <code class="command">DELETE 10-30</code>.</small>
+	</li>
+	<li>
+		At the bottom of the screen the game shows the alphabet of letters you’ve guessed. Make it display them in lowercase
+		when the game starts.
+		<br>
+		<small>Hint: the computer uses ASCII codes; 65 is the code for <code>A</code> and 97 is the code for <code>a</code>.</small>
+	</li>
+	<li>
+		Continuing on from the previous mission; now guess a letter. Oops, it changes that letter to uppercase in the alphabet of letters.
+		Now let’s fix that up!
+		<br>
+		<small>Hint: if <code>UPPER$(...)</code> changes what you give it to uppercase, maybe <code>LOWER$(...)</code>
+		changes it to lowercase.</small>
+	</li>
+	<li>Change the game so it always chooses the first word.<br><br>Hint: the <code>READ</code> command reads the next item from the <code>DATA</code>
+		commands, and the <code>RESTORE line#</code> command resets the reading to start from the line number you give it.</li>
+	<li>Change the game so it chooses from one of three of your words rather than its own list.</li>
+</ol>
+
+<h2>Program listing</h2>
+<p>
+	The game's program is listed below. You can also <code class="command">LIST</code> it in the emulator, if you've already run it,
+	or after you've loaded it using <code>LOAD"hangman</code>.
+</p>
+<pre>
+10 MODE 1
+20 INK 0,1:INK 1,26:INK 2,0:INK 3,16
+30 PEN 3:PAPER 0:BORDER 2
+40 DIM alphabet(26)
+50 SYMBOL AFTER 200
+60 SYMBOL 200,&7C,&FC,&FE,&9E,&E,&AE,&C,&60
+70 SYMBOL 201,&60,&F0,&50,&F0,&1C,&78,&38,&20
+80 SYMBOL 202,&77,&FF,&FF,&FF,&FF,&FE,&7E,&7E
+90 SYMBOL 203,&C0,&E0,&E0,&E0,&E0,&E0,0,0
+100 SYMBOL 204,&7E,&7E,&7E,&7E,&7E,&7E,&7E,&7E
+110 SYMBOL 205,&80,&80,&80,&80,&80,&80,&80,&80
+120 SYMBOL 206,&E0,&E0,&E0,&E0,&60,&60,&E0,&E0
+130 SYMBOL 207,&40,&C0,&C0,&C0,&40,0,0,0
+140 SYMBOL 208,&E,&E,&E,&F,&1F,&16,0,0
+150 SYMBOL 209,&FE,&FE,&FC,&FC,&FF,&FF,&FF,&DF
+160 SYMBOL 210,&FF,&DF,&FF,&DF,&FF,&DF,&FF,&DF
+170 SYMBOL 211,&38,&77,&EF,&1C,0,0,0,0
+180 SYMBOL 212,&80,&80,0,0,0,0,0,0
+190 SYMBOL 240,0,0,&3F,&20,&20,&27,&24,&24
+200 SYMBOL 241,0,0,&FF,0,0,&FF,0,0
+210 SYMBOL 242,0,0,&FC,4,4,&E4,&24,&24
+220 SYMBOL 243,&24,&24,&24,&24,&24,&24,&24,&24
+230 SYMBOL 244,&24,&24,&27,&20,&20,&3F,0,0
+240 SYMBOL 245,&24,&24,&E4,4,4,&FC,0,0
+250 SYMBOL 247,0,0,0,0,0,0,0,&7F
+251 SYMBOL 248,0,0,0,1,3,3,3,3
+252 SYMBOL 249,&41,&43,&FF,&9F,&AA,&AA,&6A,&6A
+253 SYMBOL 250,&F9,&FF,&F7,&96,&B2,&B0,&B6,&B6
+254 SYMBOL 251,&E0,&B0,&B0,&B0,&B8,&FF,&B8,&F0
+255 SYMBOL 252,3,1,0,0,0,0,0,0
+256 SYMBOL 253,&99,&FF,&5C,&40,&40,&40,&40,&40
+257 SYMBOL 254,&DF,&FF,3,0,0,0,0,0
+258 SYMBOL 255,&E0,&E0,&C0,0,0,0,0,0
+260 GOSUB 1300
+270 FOR loop=0 TO 25
+280 LOCATE 8 + loop,25:PRINT CHR$(loop + 65);:NEXT 
+290 PEN 1:RESTORE 4000
+300 FOR LOOP=0 TO INT(RND*78)
+310 READ word$:NEXT 
+320 L=LEN(word$):v=10-LEN(word$) / 2:store$=word$
+330 LOCATE v,12:PRINT CHR$(240) + STRING$(l,CHR$(241)) + CHR$(242);
+340 LOCATE v,13:PRINT CHR$(243) + STRING$(l,CHR$(247)) + CHR$(243);
+350 LOCATE v,14:PRINT CHR$(244) + STRING$(l,CHR$(241)) + CHR$(245);
+360 tries=1
+370 WHILE (wrong&lt;11 AND letters&lt;l)
+380 LOCATE 9,24:PRINT "WHAT IS YOUR";tries;CHR$(8);:IF tries=1 THEN PRINT "st";:ELSE IF tries=2 THEN PRINT "nd";:ELSE IF tries=3 THEN PRINT "rd";:ELSE PRINT "th";
+390 PRINT " GUESS?"
+400 in$=INKEY$:IF in$="" THEN 400
+410 in$=UPPER$(in$):IF in$&lt;"A" OR in$>"Z" THEN 400
+420 IF alphabet(ASC(in$)-65)=1 THEN 400
+430 alphabet(ASC(in$)-65)=1:LOCATE (ASC(in$)-57),25:PRINT in$;
+440 tries=tries + 1:guess=0
+450 FOR loop=1 TO L
+460 IF MID$ (word$,loop,1)=in$ THEN MID$ (word$,loop,1)=" ":LOCATE v + loop,13:PEN 3:PRINT "";CHR$(22);"";CHR$(1);"" + in$ + "";CHR$(22);"";CHR$(4);"":PEN 1:letters=letters + 1:guess=-1
+470 NEXT 
+480 IF guess THEN 510
+490 wrong=wrong + 1
+500 ON wrong GOSUB 1000,1040,1060,1080,1100,1130,1170,1240,1200,1280
+510 WEND 
+520 IF wrong=11 THEN 800
+530 CLS:LOCATE 6,10:PEN 1:PRINT "You guessed that the word was"
+535 LOCATE 20-l / 2,12:PRINT store$
+540 LOCATE 15,14:PRINT "in";tries;"goes."
+550 LOCATE 16,16:PEN 3:IF (tries-l)&lt;6 THEN PRINT "Well done."
+551 LOCATE 15,18
+560 FOR loop=0 TO 1600:NEXT:GOTO 900
+800 x=266:y=20:yi=2
+801 ORIGIN 0,0,0,640,400,0:PRINT CHR$(23) + CHR$(0);
+802 TAG:PLOT 800,800,1:MOVE 400,216:PRINT CHR$(248) + CHR$(249) + CHR$(250) + CHR$(251);
+803 MOVE 400,200:PRINT CHR$(252) + CHR$(253) + CHR$(254) + CHR$(255);
+810 IF y>-80 THEN y=y-yi:GOSUB 3000:GOTO 810
+820 INK 3,19:BORDER 1
+821 FOR loop=0 TO 1000:NEXT 
+822 CLS 
+830 LOCATE 14,8:PRINT "The word was"
+831 LOCATE 20-l / 2,12:PRINT store$
+890 LOCATE 15,25
+900 PRINT "Another go?"
+901 BORDER 1
+910 a$=INKEY$:IF a$="" THEN 910 ELSE a$=UPPER$(a$):IF a$="Y" THEN RUN 
+920 IF a$&lt;>"N" THEN 910
+930 CLS:PRINT "Well, you've just saved one man from";"certain death!":PRINT:PRINT:PRINT:PRINT:END 
+1000 PLOT 800,800,1
+1010 ORIGIN 326,40:PRINT "";CHR$(23);"";CHR$(4);"";
+1020 MOVE 0,100:DRAW 56,106:DRAW 72,100:DRAW 92,102:MOVE 92,110
+1021 DRAW 112,112:DRAW 280,76:DRAW 120,40:DRAW 0,100:DRAW 0,80
+1022 DRAW 120,0:DRAW 280,48:DRAW 280,76:MOVE 120,40:DRAW 120,0
+1030 RETURN 
+1040 MOVE 56,106:DRAW 56,216:MOVE 72,100:DRAW 72,202:MOVE 92,102:DRAW 92,200
+1050 RETURN 
+1060 MOVE 56,216:DRAW 144,240:DRAW 144,216:DRAW 72,202:DRAW 92,200
+1061 DRAW 168,214:DRAW 168,238:DRAW 144,242:MOVE 144,216:DRAW 168,214
+1070 RETURN 
+1080 MOVE 120,54:DRAW 64,80:DRAW 166,94:DRAW 240,78:DRAW 120,54
+1090 RETURN 
+1100 FOR loop=210 TO 182 STEP-4:MOVE 144,loop:DRAWR 2,2
+1110 NEXT 
+1120 RETURN 
+1130 ORIGIN 266,20:PRINT CHR$(23) + CHR$(0);
+1140 TAG:PLOT 800,800,2:MOVE 200,200:PRINT CHR$(200);:TAGOFF:PRINT CHR$(23) + CHR$(1);:TAG 
+1150 PLOT 800,800,3:MOVE 200,194:PRINT CHR$(201);:TAGOFF:PRINT CHR$(23) + CHR$(0);
+1160 RETURN 
+1170 TAG:PLOT 800,800,1:MOVE 196,180:PRINT CHR$(202);CHR$(203);
+1180 MOVE 196,164:PRINT CHR$(204);:TAGOFF 
+1190 RETURN 
+1200 PRINT CHR$(23) + CHR$(1);:TAG:PLOT 800,800,3:MOVE 196,168:PRINT CHR$(205);CHR$(206);
+1210 MOVE 194,152:PRINT CHR$(207);
+1220 MOVE 204,152:PRINT CHR$(208);:TAGOFF:PRINT CHR$(23) + CHR$(0);
+1230 RETURN 
+1240 TAG:PLOT 800,800,2:MOVE 198,148:PRINT CHR$(209);
+1250 MOVE 198,132:TAGOFF:PRINT CHR$(23) + CHR$(0);:TAG:PRINT CHR$(210);
+1260 MOVE 198,116:PRINT CHR$(210);:TAGOFF:PRINT CHR$(23) + CHR$(1);
+1270 RETURN 
+1280 TAG:PLOT 800,800,3:MOVE 194,100:PRINT CHR$(211);CHR$(212);:TAGOFF 
+1290 RETURN 
+1300 PLOT 800,0,1:PRINT CHR$(23) + CHR$(0);
+1310 READ x,y,z
+1320 IF z=-1 THEN RETURN 
+1330 MOVE x,y
+1340 ON z GOSUB 1360,1370,1380,1390
+1350 GOTO 1310
+1360 FOR loop=0 TO 3:DRAWR 0,48:MOVER 2,-48:NEXT:RETURN 
+1370 FOR loop=0 TO 3:DRAWR-32,48:MOVER 34,-48:NEXT:RETURN 
+1380 FOR loop=0 TO 3:DRAWR 22,0:MOVER-22,2:NEXT:RETURN 
+1390 FOR loop=0 TO 3:DRAWR 0,24:MOVER 2,-24:NEXT:RETURN 
+1400 DATA 64,320,1,96,320,1,72,340,3,108,320,1,140,320,2,108,340,3
+1410 DATA 152,320,1,184,320,1,184,320,2,196,320,1,204,320,3,220,320,4,204,362,3
+1420 DATA 210,340,3,238,320,1,270,320,1,270,320,2,302,320,2,314,320,1,346,320,2
+1430 DATA 314,340,3,358,320,1,390,320,1,390,320,2
+1440 DATA 0,0,-1
+3000 TAGOFF:PRINT CHR$(23) + CHR$(0);:TAG 
+3001 yc=yc + 1:IF yc>2 THEN yc=0:yi=yi + 2
+3010 ORIGIN x,y,194 + x,216 + x,180 + y + yi,MAX(94 + y,108):CLG 0
+3011 ORIGIN 0,0
+3012 MOVE 450,150:DRAW 490,142,1:MOVE 454,130:DRAW 486,134
+3013 ORIGIN x,y
+3020 TAG 
+3060 PLOT 800,800,1:MOVE 196,180:PRINT CHR$(202);CHR$(203);
+3070 MOVE 196,164:PRINT CHR$(204);
+3120 PLOT 800,800,2:MOVE 198,148:PRINT CHR$(209);
+3140 MOVE 198,132:PRINT CHR$(210);
+3150 MOVE 198,116:PRINT CHR$(210);
+3160 TAGOFF:PRINT CHR$(23) + CHR$(1);:TAG 
+3161 IF y>14 THEN PLOT 800,800,3:MOVE 200,194:PRINT CHR$(201);
+3162 PLOT 800,800,3:MOVE 196,168:PRINT CHR$(205);CHR$(206);
+3163 MOVE 194,152:PRINT CHR$(207);:MOVE 204,152:PRINT CHR$(208);
+3170 PLOT 800,800,3:MOVE 194,100:PRINT CHR$(211);CHR$(212);:TAGOFF 
+3180 RETURN 
+4000 DATA AVAILABLE,INEDIBLE,PUTREFY,PYRAMID,UNEMPLOYMENT,ZEPPELIN,CORNET,FRYPAN,HOMELAND,INGREDIENTS,LANDSLIDE,MOTIVE,PAISLEY,SEANCE,UNDERWORLD,WORTHWHILE,VOUCHER,VANISH,TRUANT,COMPUTER,VISUAL,DISPLAY,UNIT,CENTRAL,PROCESSOR,BASIC,KEYBOARD
+4010 DATA JOYSTICK,ADVENTURE,INTEGRATED,CIRCUIT,PROGRAM,ASSEMBLER,MODEM,PRINTER,TELETYPE,INTERFACE,COMMUNICATIONS,LUCKY,FALCON,FAINT,GHOUL,GIMBALS,RETCH,RETROGRADE,REUNION,REVIVE,REVUE,REWIND,RHEUM,RHOMBUS,RHYME,SACRED,SAGA,SALAMI,SCOUR
+4020 DATA SEQUIN,SERIAL,STYLUS,SYMBOL,OVERLOAD,THYME,TRAVEL,UKULELE,ULTIMATUM,UMPIRE,UNCIVIL,VIEWER,VIGILANTE,WEREWOLF,WHISK,ZEPHYR,PIZZA,PLAGUE,GULP,GROUSE,FRAUD,ETCH
+</pre>
+
+</article>
+
+{% include "colour-chart" %}
+
+	</div>
+</section>
+
+<script>
+window.onCpcLoad = function() {
+	Module._webapi_load_file("../example/dsk/hangman.dsk")
+}
+</script>

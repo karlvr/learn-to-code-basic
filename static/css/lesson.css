@@ -74,6 +74,7 @@ pre {
 	background: #eee;
 	padding: 0.5em 0.5em;
 	text-wrap-mode: wrap;
+	word-break: break-all;
 }
 
 h1 {
@@ -108,4 +109,8 @@ a.button, a.button:active, a.button:visited {
 a.button:active {
 	background-color: black;
 	color: white;
+}
+
+ol li {
+	margin-bottom: 0.5em;
 }
