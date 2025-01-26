@@ -57,3 +57,43 @@ To use the version you just built:
 ```shell
 cp ../fips-deploy/chips-test/wasm-ninja-release/cpc* ../../static/js/floooh/
 ```
+
+## BASIC
+
+### Extracting files from `.dsk` files
+
+Get iDSK from https://github.com/cpcsdk/idsk
+
+Build it from source:
+
+```shell
+cmake
+make
+```
+
+List the files on your disk:
+
+```shell
+./iDSK <dskfile> -l
+```
+
+Then _get_ the listed file(s):
+
+```shell
+./iDSK <dskfile> -g <filename>
+```
+
+### Converting `.bas` files to text
+
+Download `BASList.jar` from https://www.cpcwiki.eu/forum/applications/baslist-java-tool-to-list-basic-files/msg29481/#msg29481
+
+Then run it to present the GUI window:
+
+```shell
+java -jar BASList.jar
+```
+
+Click the "List" button to load the file, and then "Copy" to copy the code out.
+
+I have made some enhancements to `BASList`, which I've published on GitHub at https://github.com/karlvr/baslist
+but which might not be public until I've checked if the original author is happy for me to actually publish it.
