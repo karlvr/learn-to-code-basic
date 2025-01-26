@@ -1,0 +1,512 @@
+---
+layout: base.html
+title: Amstrad CPC 6128 - Moonbase
+---
+<section class="side-by-side">
+	<canvas class="game right" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+	<div>
+	<article>
+		
+		<h1>Moonbase</h1>
+<pre>
+RUN"moon
+</pre>
+
+<p>
+	First try to play this game. Make sure you read the instructions as it’s really hard!
+</p>
+<p>
+	Did you notice that the grab is operated with the copy key or the fire button on the joystick.
+	We don’t have a joystick, and there isn’t a copy button on modern computers! So before we really
+	play we’re going to have to change the grab key—that’s our first mission.
+</p>
+
+<h2>Missions</h2>
+<ol>
+	<li>
+		Change the key to operate the grabs from copy to the G key.
+		<br>
+		<small>Hint: the key code for the copy key is 9 and the key code for the G key is 52. This game defines the key codes
+			right at the beginning in 200.
+		</small>
+	</li>
+	<li>
+		You get a break! Just play the game and see how far you can get. Can you make it to the first alert?
+	</li>
+	<li>The game is mostly yellow; change it to your favourite colour.</li>
+	<li>
+		Does the Z key make sense for engines for you? Change it to E.
+		<br>
+		<small>Hint: I’ve included the keyboard key codes below the program listing.</small>
+	</li>
+</ol>
+
+<h2>Program listing</h2>
+<p>
+	The game's program is listed below. You can also <code class="command">LIST</code> it in the emulator, if you've already run it,
+	or after you've loaded it using <code>LOAD"moon</code>.
+</p>
+<pre>
+10 REM******************************
+20 REM*M o o n B a s e A l p h a*
+30 REM*b y M a r t i n A d a m s*
+40 REM**
+50 REM*A m s t r a d C o m p u t e r U s e r*
+60 REM**
+70 REM*0 7 / 8 5*
+80 REM******************************
+90 REM 
+100 REM****i n i t i a l i s a t i o n c o l d******
+110 REM 
+120 DEFINT a-p,r-z 
+130 MODE 1
+140 INK 0,0:BORDER 0:PAPER 0:INK 1,24:INK 2,26:INK 3,15
+150 LOCATE 13,12:PRINT "Moon Base Alfa"
+160 FOR i=1 TO 3000:NEXT i
+170 DIM scoret[10],namet$[10] 
+180 rock=14:g1=127:g2=143:g3=251
+190 upj=72:downj=73:leftj=74:rightj=75:liftj=76
+200 upk=0:downk=2:leftk=8:rightk=1:liftk=9
+210 SYMBOL 251,60,126,255,255,255,255,255,102
+220 SYMBOL 252,31,63,127,225,127,63,31,0
+230 SYMBOL 253,255,255,255,195,255,255,255,126
+240 SYMBOL 254,248,252,254,135,254,252,248,0
+250 SYMBOL 255,0,0,0,240,240,0,0,0
+260 GOTO 330
+270 REM 
+280 REM*********p l a y a g a i n ?*********
+290 MODE 1:PEN 1:PRINT "Would you like to play again (y/n)?"
+300 IF NOT INKEY(46) THEN CALL &BC02:BORDER 1:PAPER 0:PEN 1:CALL &BB03:CLS:END 
+310 IF INKEY(43) THEN 300
+320 REM 
+330 REM*****i n s t r u c t i o n s*****
+340 REM 
+350 CLS:PRINT "You are a science officer and have been";
+360 PRINT:PRINT "posted to Moon Base Alpha.A large solar";
+370 PRINT:PRINT "flare eruption is imminent and the"
+380 PRINT:PRINT "situation is critical."
+390 PRINT:PRINT "You must finish building the radio" 
+400 PRINT:PRINT "tower and move the stores equipment"
+410 PRINT:PRINT "into the bunker before the 2nd flare"
+420 PRINT:PRINT "hits."
+430 PRINT:PRINT "You can only survive the flares in the"
+440 PRINT:PRINT "bunker so keep a watch on the two stage"
+450 PRINT:PRINT "radiation alarm."
+460 LOCATE 20,23:PRINT "GOOD LUCK."
+470 GOSUB 4420
+480 PRINT " Your controls are shown below and you can use either joystick or cursor keys."
+490 PRINT:PRINT " ";CHR$(242);" to move ship left."
+500 PRINT:PRINT " ";CHR$(243);" to move ship right."
+510 PRINT:PRINT " ";CHR$(240);" to move ship up."
+520 PRINT:PRINT " ";CHR$(241);" to move ship down (free fall)."
+530 PRINT:PRINT " copy/fire to operate grabs."
+540 PRINT:PRINT " z to operate engines."
+550 PRINT:PRINT " d to operate bunker door."
+560 PRINT:PRINT " p to display plans."
+570 PRINT:PRINT "Note- when refueling switch engines off."
+580 GOSUB 4420
+590 REM 
+600 REM****i n i t i a l i s a t i o n w a r m*****
+610 REM 
+620 DIM screen[40,25] 
+630 score=0:score1=0:score2=0:scoref=0:count=2
+640 timeout=0:yellow=0:orange=0:alarmdelay=3
+650 engines=-1:upflag=0:grab=-1:shipend=0:objectexplode=0:outside=0
+660 velocity=0:objvel=0:objectupflag=1:objecttype=0:maxvel=3
+670 alive=1:timestrand=24:done=0:ctime=1500:alarm=0:door=1:maxfuel=10000:fuel=9000
+680 REM 
+690 REM*****s c e n e s e t u p*******
+700 CLS:GOSUB 4060 
+710 REM 
+720 REM****o b j e c t s e t u p*****
+730 objy=19:FOR objx=19 TO 25 STEP 2:GOSUB 2270:NEXT objx
+740 objy=18:objx=20:GOSUB 2340:objx=24:GOSUB 2340
+750 objy=17:FOR objx=17 TO 25 STEP 4:GOSUB 2340:NEXT objx
+760 objx=19:objy=15:GOSUB 2340
+770 objy=16:FOR objx=17 TO 25 STEP 2:GOSUB 2270:NEXT objx
+780 objy=24:FOR objx=6 TO 12 STEP 2:GOSUB 2460:NEXT objx
+790 objy=23:FOR objx=6 TO 14 STEP 4:GOSUB 2340:NEXT objx
+800 objy=22:FOR objx=7 TO 13 STEP 2:GOSUB 2460:NEXT objx
+810 objx=14:objy=24:GOSUB 2270
+820 objy=21:objx=7:GOSUB 2270:objx=10:GOSUB 2340
+830 objy=17:objx=19:GOSUB 2460:objx=23:GOSUB 2460:objx=13:objy=21:GOSUB 2270
+840 objx=23:objy=15:GOSUB 2460:objx=25:GOSUB 2460
+850 REM 
+860 REM*****s h i p p l a c e******
+870 PEN 3:x=21:y=24:GOSUB 1320
+880 REM 
+890 REM*****p a n e l s e t u p*****
+900 GOSUB 3200:GOSUB 3000
+910 REM 
+920 REM****e n g i n e a n d a l a r m s o u n d s e t u p****
+930 EVERY 25,1 GOSUB 2880
+940 REM 
+950 REM*****m a i n l o o p*****
+960 IF NOT INKEY(27) THEN GOSUB 4380:GOSUB 2500:REM p l a n s 
+970 GOSUB 1180:REM s h i p c o n t r o l 
+980 IF engines=1 THEN IF grab=1 THEN tone=1700-objecttype*500:fuel=fuel-10*objecttype ELSE fuel=fuel-5:tone=1100:GOSUB 2170
+990 IF fuel&lt;0 THEN fuel=0
+1000 IF fuel>0 THEN 1020
+1010 engines=-1:IF x&lt;>37 OR y&lt;>3 THEN GOSUB 1540:GOSUB 3270:IF done=1 THEN shipend=1:CLS:PRINT "You ran out of fuel, were stranded and":PRINT:PRINT "perished when your life support systems":PRINT:PRINT "failed.":GOTO 1130
+1020 IF engines=-1 THEN upflag=0
+1030 IF upflag=0 THEN GOSUB 1660:REM f a l l c h u c k 
+1040 IF shipend=1 THEN GOSUB 3750:GOTO 1130
+1050 fueling=0
+1060 IF x=37 THEN IF y=3 THEN IF engines=-1 THEN fueling=1:GOSUB 2950:REM f u e l l o a d 
+1070 GOSUB 1540:REM p a n e l u p d a t e 
+1080 ctime=ctime-1:IF ctime>0 THEN 950:REM l o o p b a c k 
+1090 yellow=0:orange=0:count=count-1
+1100 FOR i=1 TO 20:INK 0,24:FOR j=1 TO 200:NEXT j:INK 0,0:NEXT i
+1110 GOSUB 3820
+1120 IF shipend=0 AND count>0 THEN ctime=1500:GOTO 950
+1130 GOSUB 4460:FOR i=1 TO 5000:NEXT i
+1140 GOSUB 3480:GOSUB 3310:REM c a l c u l a t e & d i s p l a y s c o r e s 
+1150 ERASE screen
+1160 GOTO 280:REM p l a y a g a i n ? 
+1170 REM 
+1180 REM*****s h i p c o n t r o l*****
+1190 IF engines=-1 THEN 1240
+1200 IF NOT INKEY(upj) OR NOT INKEY(upk) THEN velocity=0:IF upflag=0 THEN upflag=1:RETURN ELSE direction=1:GOSUB 1400:GOTO 1280
+1210 IF NOT INKEY(downj) OR NOT INKEY(downk) THEN upflag=0:direction=2:IF grab=-1 THEN GOSUB 1400:RETURN ELSE RETURN 
+1220 IF NOT INKEY(leftj) OR NOT INKEY(leftk) THEN velocity=0:upflag=1:direction=3:GOSUB 1400:GOTO 1280
+1230 IF NOT INKEY(rightj) OR NOT INKEY(rightk) THEN velocity=0:upflag=1:direction=4:GOSUB 1400:GOTO 1280
+1240 IF NOT INKEY(71) AND fuel>0 THEN engines=engines*-1:GOSUB 4380:RETURN 
+1250 IF (NOT INKEY(liftj) OR NOT INKEY(liftk)) AND screen[x,y + 1]>0 AND screen[x,y + 1]&lt;4 THEN grab=grab*-1:objecttype=screen[x,y + 1]:objx=x:objy=y + 1:GOSUB 4380:RETURN 
+1260 IF NOT INKEY(61) THEN GOSUB 3960:RETURN 
+1270 RETURN 
+1280 IF grab=-1 THEN RETURN 
+1290 IF direction&lt;>2 THEN objvel=0:GOSUB 1980:RETURN 
+1300 GOSUB 1980:RETURN 
+1310 REM 
+1320 REM****s h i p d r a w*****
+1330 LOCATE x-1,y:PRINT CHR$(252) + CHR$(253) + CHR$(254);
+1340 RETURN 
+1350 REM 
+1360 REM****s h i p d e l e t e*****
+1370 LOCATE x-1,y:PRINT "   ";
+1380 RETURN 
+1390 REM 
+1400 REM*****s h i p m o v e******
+1410 PEN 3:GOSUB 1360
+1420 ON direction GOTO 1430,1450,1470,1490
+1430 IF screen[x-1,y-1]>0 OR screen[x,y-1]>0 OR screen[x + 1,y-1]>0 THEN 1520
+1440 y=y-1:GOTO 1510
+1450 IF screen[x-1,y + 1]>0 OR screen[x,y + 1]>0 OR screen[x + 1,y + 1]>0 THEN 1520
+1460 y=y + 1:GOTO 1510
+1470 IF screen[x-2,y]>0 THEN 1520
+1480 x=x-1:GOTO 1510
+1490 IF screen[x + 2,y]>0 THEN 1520
+1500 x=x + 1
+1510 GOSUB 1320:RETURN 
+1520 shipend=1:RETURN 
+1530 REM 
+1540 REM******p a n e l u p d a t e*****
+1550 PEN 1
+1560 IF fueling=0 THEN GOSUB 3040:REM f u e l g a u g e e m p t y i n g 
+1570 LOCATE 17,1:IF engines=1 THEN PRINT CHR$(143);ELSE PRINT " ";
+1580 LOCATE 25,1:IF grab=1 THEN PRINT CHR$(143);ELSE PRINT " ";
+1590 IF ctime=99 THEN yellow=1
+1600 IF ctime=49 THEN yellow=0:orange=1
+1610 LOCATE 33,1
+1620 IF ctime&lt;50 THEN PEN 3:PRINT CHR$(143);:GOTO 1640
+1630 IF ctime&lt;100 THEN PEN 1:PRINT CHR$(143);ELSE PRINT " ";
+1640 RETURN 
+1650 REM 
+1660 REM******s h i p f a l l*****
+1670 PEN 3:IF grab=1 THEN 1700
+1680 IF screen[x-1,y + 1]>0 OR screen[x,y + 1]>0 OR screen[x + 1,y + 1]>0 THEN IF velocity>maxvel THEN 1790 ELSE RETURN 
+1690 GOSUB 1360:y=y + 1:GOSUB 1320:velocity=velocity + 1:RETURN 
+1700 ON objecttype GOTO 1710,1750,1710
+1710 IF screen[x-1,y + 1]>0 OR screen[x,y + 2]>0 OR screen[x + 1,y + 1]>0 THEN IF velocity>maxvel THEN 1790 ELSE RETURN 
+1720 GOSUB 1360:y=y + 1:GOSUB 1320:velocity=velocity + 1:screen[objx,objy]=0:objy=objy + 1
+1730 IF objecttype=1 THEN GOSUB 2270 ELSE GOSUB 2460
+1740 RETURN 
+1750 IF screen[x-1,y + 2]>0 OR screen[x,y + 2]>0 OR screen[x + 1,y + 2]>0 THEN IF velocity>maxvel THEN 1790 ELSE RETURN 
+1760 GOSUB 1360:y=y + 1:GOSUB 1320:velocity=velocity + 1
+1770 FOR i=objx-1 TO objx + 1:screen[i,objy]=0:NEXT i
+1780 objy=objy + 1:GOSUB 2350:RETURN 
+1790 shipend=1:RETURN 
+1800 REM 
+1810 REM*****e x p l o s i o n*****
+1820 PEN 3:engines=-1
+1830 IF xe&lt;4 THEN xe=4
+1840 IF xe>37 THEN xe=37
+1850 FOR i=1 TO 3:FOR j=ye-1 TO ye + 1
+1860 LOCATE xe-3,j:PRINT SPACE$(7);
+1870 FOR d=1 TO 100:NEXT d
+1880 SOUND 1,200,5,15,0,0,15
+1890 LOCATE xe-3,j:PRINT ".:::::.";
+1900 NEXT j:NEXT i
+1910 FOR j=ye-1 TO ye + 1
+1920 LOCATE xe-3,j:PRINT SPACE$(7);
+1930 screen[xe-3,j]=0:screen[xe-2,j]=0:screen[xe-1,j]=0:screen[xe,j]=0:screen[xe + 1,j]=0:screen[xe + 2,j]=0:screen[xe + 3,j]=0
+1940 NEXT j
+1950 engines=-1:yellow=0:orange=0
+1960 RETURN 
+1970 REM 
+1980 REM****o b j e c t m o v e****
+1990 IF objecttype=3 THEN PEN 3 ELSE PEN 2
+2000 ON objecttype GOTO 2010,2100,2010
+2010 GOSUB 2310:ON direction GOTO 2020,2030,2050,2060
+2020 objy=objy-1:GOTO 2040
+2030 objy=objy + 1
+2040 IF objecttype=1 THEN GOSUB 2270:RETURN ELSE GOSUB 2460:RETURN 
+2050 objx=objx-1:GOTO 2070
+2060 objx=objx + 1
+2070 LOCATE objx,objy:IF objecttype=1 THEN PRINT CHR$(g2);ELSE PRINT CHR$(g3);
+2080 IF screen[objx,objy]>0 THEN shipend=1
+2090 screen[objx,objy]=objecttype:RETURN 
+2100 GOSUB 2410:ON direction GOTO 2110,2120,2130,2140
+2110 objy=objy-1:GOTO 2150
+2120 objy=objy + 1:GOTO 2150
+2130 objx=objx-1:IF screen[objx-1,objy]>0 THEN shipend=1:GOTO 2150 ELSE 2150
+2140 objx=objx + 1:IF screen[objx + 1,objy]>0 THEN shipend=1
+2150 GOSUB 2350:RETURN 
+2160 REM 
+2170 REM*****o b j e c t f a l l*****
+2180 PEN 2:ON objecttype GOTO 2190,2230,2190
+2190 IF objvel>maxvel AND screen [objx,objy + 1]>0 THEN 2250
+2200 IF screen[objx,objy + 1]>0 THEN RETURN ELSE GOSUB 2310
+2210 objy=objy + 1:IF objecttype=1 THEN GOSUB 2270 ELSE GOSUB 2460
+2220 objvel=objvel + 1:RETURN 
+2230 IF screen[objx-1,objy + 1]>0 OR screen[objx,objy + 1]>0 OR screen[objx + 1,objy + 1]>0 THEN IF objvel>maxvel THEN 2250 ELSE RETURN 
+2240 GOSUB 2410:objy=objy + 1:GOSUB 2350:objvel=objvel + 1:RETURN 
+2250 SOUND 1,200,100,15,0,0,15:xe=objx:ye=objy:GOSUB 1810:shipend=1:objectexplode=1:RETURN 
+2260 REM 
+2270 REM*****o b j e c t 1 d r a w****
+2280 PEN 2:LOCATE objx,objy:PRINT CHR$(g2);:screen[objx,objy]=1
+2290 RETURN 
+2300 REM 
+2310 REM*****o b j e c t 1 & 3 d e l e t e*****
+2320 LOCATE objx,objy:PRINT " ";:screen[objx,objy]=0
+2330 RETURN 
+2340 REM 
+2350 REM***o b j e c t 2 d r a w*******
+2360 PEN 2:LOCATE objx-1,objy:PRINT CHR$(127) + CHR$(233) + CHR$(127);
+2370 FOR io=objx-1 TO objx + 1:screen[io,objy]=rock:NEXT io
+2380 screen[objx,objy]=2
+2390 RETURN 
+2400 REM 
+2410 REM****o b j e c t 2 d e l e t e*****
+2420 LOCATE objx-1,objy:PRINT SPACE$(3);
+2430 FOR i=objx-1 TO objx + 1:screen[i,objy]=0:NEXT i
+2440 RETURN 
+2450 REM 
+2460 REM****o b j e c t 3 d r a w****
+2470 PEN 3:LOCATE objx,objy:PRINT CHR$(g3);:screen[objx,objy]=3
+2480 RETURN 
+2490 REM 
+2500 REM*****d i s p l a y p l a n s****
+2510 CLS:GOSUB 4060:PEN 2
+2520 LOCATE 6,24:PRINT CHR$(g2) + "  " + CHR$(g2) + "  " + CHR$(g2);
+2530 LOCATE 6,23:PRINT CHR$ (127) + CHR$(233) + CHR$(127) + CHR$(g2) + CHR$(127) + CHR$(233) + CHR$(127);
+2540 FOR j=22 TO 8 STEP-2
+2550 LOCATE 9,j:PRINT CHR$(g2);
+2560 LOCATE 8,j-1:PRINT CHR$(127) + CHR$(233) + CHR$(127);
+2570 NEXT j
+2580 LOCATE 20,16:PRINT CHR$(127) + CHR$(233) + CHR$(127);
+2590 PEN 3
+2600 FOR i=20 TO 28 STEP 2:LOCATE i,24:PRINT CHR$(g3);:NEXT i
+2610 LOCATE 28,23:PRINT CHR$(g3);
+2620 LOCATE 20,15:PRINT CHR$(252) + CHR$(253) + CHR$(254);
+2630 PEN 1
+2640 LOCATE 30,22:PRINT " ";
+2650 LOCATE 1,1:PRINT "press space bar to continue"
+2660 LOCATE 20,4:PRINT "FUEL BASE-------";
+2670 LOCATE 21,22:PRINT "BUNKER";
+2680 LOCATE 29,23:PRINT "----STORES";
+2690 LOCATE 11,11:PRINT "------TOWER";
+2700 IF INKEY(47) THEN 2700
+2710 GOSUB 2740
+2720 RETURN 
+2730 REM 
+2740 REM*****r e g e n e r a t e s c r e e n******
+2750 CLS:GOSUB 4060:REM s c e n e s e t u p 
+2760 GOSUB 3200:REM p a n e l s e t u p 
+2770 GOSUB 1540:REM p a n e l d i s p l a y 
+2780 FOR i=1 TO 40:FOR j=2 TO 25
+2790 ON screen[i,j] GOTO 2810,2820,2830
+2800 GOTO 2840
+2810 PEN 2:LOCATE i,j:PRINT CHR$(g2);:GOTO 2840
+2820 oxt=objx:oyt=objy:objx=i:objy=j:GOSUB 2350:objx=oxt:objy=oyt:GOTO 2840
+2830 PEN 3:LOCATE i,j:PRINT CHR$(g3);
+2840 NEXT j:NEXT i
+2850 PEN 3:GOSUB 1320
+2860 RETURN 
+2870 REM 
+2880 REM***e n g i n e s o u n d s u b******
+2890 IF engines=1 THEN SOUND 2,tone,50,4
+2900 IF yellow=0 AND orange=0 THEN RETURN 
+2910 IF alarmdelay>0 THEN alarmdelay=alarmdelay-1:RETURN ELSE alarmdelay=3
+2920 IF yellow=1 THEN SOUND 4,400,50,12:SOUND 4,300,50,12 ELSE SOUND 4,200,50,13:SOUND 4,100,50,12
+2930 RETURN 
+2940 REM 
+2950 REM*****r e f u e l i n g*****
+2960 IF fuel&lt;maxfuel THEN fuel=fuel + 100 ELSE SOUND 1,150,5,13
+2970 GOSUB 3000
+2980 RETURN 
+2990 REM 
+3000 REM****f u e l g a u g e f i l l i n g*****
+3010 PEN 1:LOCATE 7,1:PRINT STRING$(INT(fuel*5 / maxfuel),CHR$(154));
+3020 RETURN 
+3030 REM 
+3040 REM****f u e l g a u g e e m p t y i n g*****
+3050 PEN 1:LOCATE 7,1
+3060 IF fuel=0 THEN PRINT SPACE$(5);:GOTO 3180
+3070 ON fuel / maxfuel*10 GOTO 3080,3090,3100,3110,3120,3130,3140,3150,3160,3170
+3080 PRINT CHR$(255) + SPACE$(4);:GOTO 3180
+3090 PRINT CHR$(154) + SPACE$(4);:GOTO 3180
+3100 PRINT CHR$(154) + CHR$(255) + SPACE$(3);:GOTO 3180
+3110 PRINT STRING$(2,CHR$(154)) + SPACE$(3);:GOTO 3180
+3120 PRINT STRING$(2,CHR$(154)) + CHR$(255) + SPACE$(2);:GOTO 3180
+3130 PRINT STRING$(3,CHR$(154)) + SPACE$(2);:GOTO 3180
+3140 PRINT STRING$(3,CHR$(154)) + CHR$(255) + SPACE$(1);:GOTO 3180
+3150 PRINT STRING$(4,CHR$(154)) + SPACE$(1);:GOTO 3180
+3160 PRINT STRING$(4,CHR$(154));CHR$(255);:GOTO 3180
+3170 PRINT STRING$(5,CHR$(154));
+3180 RETURN 
+3190 REM 
+3200 REM*****p a n e l s e t u p*****
+3210 PEN 2:LOCATE 2,1:PRINT "FUEL";
+3220 LOCATE 13,1:PRINT "ENG";
+3230 LOCATE 19,1:PRINT "GRABS";
+3240 LOCATE 27,1:PRINT "ALARM";
+3250 RETURN 
+3260 REM 
+3270 REM***s t r a n d e d d e l a y****
+3280 IF timestrand>0 THEN timestrand=timestrand-1 ELSE done=1
+3290 RETURN 
+3300 REM 
+3310 REM*****d i s p l a y s c o r e s********
+3320 CLS:CALL &BB03
+3330 INPUT "what is your name ";name$:name$=LEFT$(name$,9):CLS 
+3340 FOR i=10 TO 1 STEP-1
+3350 IF scoret[i]>score THEN NEXT i:GOTO 3410
+3360 FOR j=i TO 1 STEP-1
+3370 tempscore=scoret[j]:tempname$=namet$[j] 
+3380 scoret[j]=score:namet$[j]=name$
+3390 score=tempscore:name$=tempname$
+3400 NEXT j
+3410 PRINT " name"SPACE$(7);"score":PRINT 
+3420 FOR i=10 TO 1 STEP-1
+3430 PRINT " ";namet$[i],scoret[i] 
+3440 NEXT i
+3450 GOSUB 4420
+3460 RETURN 
+3470 REM 
+3480 REM*******s c o r i n g*********
+3490 PEN 1:FOR i=19 TO 29:FOR j=21 TO 24
+3500 IF screen[i,j]=3 THEN score=score + 10
+3510 NEXT j:NEXT i
+3520 CLS:PRINT "For moving stores you scored   ";score:PRINT 
+3530 FOR i=6 TO 12 STEP 3
+3540 IF screen[i,24]=1 THEN score2=score2 + 2
+3550 NEXT i
+3560 IF score2&lt;6 THEN score1=score2:GOTO 3670 ELSE score1=score1 + score2:score2=0
+3570 FOR i=6 TO 10 STEP 4
+3580 IF screen[i,23]=14 AND screen[i + 1,23]=2 AND screen[i + 2,23]=14 THEN score2=score2 + 6
+3590 NEXT i
+3600 score1=score1 + score2:IF score2&lt;12 THEN 3670 ELSE scoref=1
+3610 IF screen[9,23]=1 THEN score1=score1 + 2 ELSE 3670
+3620 IF scoref=0 THEN 3670
+3630 FOR j=22 TO 8 STEP-2
+3640 IF screen[9,j]=1 THEN score1=score1 + 2 ELSE 3670
+3650 IF screen[8,j-1]=14 AND screen[9,j-1]=2 AND screen[10,j-1]=14 THEN score1=score1 + 6 ELSE 3670
+3660 NEXT j
+3670 score=score + score1
+3680 PRINT "For work on tower you scored   ";score1:PRINT 
+3690 IF score1=84 THEN PRINT "For finishing tower you scored 300":PRINT:score=score + 300
+3700 IF shipend=1 THEN PRINT "For destroying ship you scored  0" ELSE score=score + 100:PRINT "For saving ship you scored";SPACE$(6);"100"
+3710 PRINT:PRINT:PRINT "Your total score is";SPACE$(12);score
+3720 GOSUB 4420
+3730 RETURN 
+3740 REM 
+3750 REM*******s h i p d e s t r o y e d******
+3760 xe=x:ye=y:GOSUB 1810:GOSUB 4460:CLS:PEN 1
+3770 IF fuel=0 THEN PRINT " Your ship ran out of fuel and then":PRINT:PRINT "crashed.":RETURN 
+3780 IF objectexplode=1 THEN PRINT "You droppped an object, it exploded and":PRINT:PRINT "the radiation destroyed your ship.":RETURN 
+3790 PRINT "You crashed your ship."
+3800 RETURN 
+3810 REM 
+3820 REM******s h i p s a f e******
+3830 PEN 1:IF x&lt;19 OR x>28 OR y&lt;21 THEN outside=1:GOTO 3910
+3840 FOR i=17 TO 30
+3850 IF screen[i,20]&lt;rock OR screen[i,25]&lt;rock THEN 3910
+3860 NEXT i
+3870 FOR j=20 TO 25
+3880 IF screen[17,j]&lt;rock OR screen[30,j]&lt;rock THEN 3910
+3890 NEXT j
+3900 IF count=0 THEN CLS:PRINT "Congratulations your ship survived the":PRINT:PRINT "solar flares.":RETURN ELSE RETURN 
+3910 shipend=1:xe=x:ye=y:GOSUB 1810:CLS:PEN 1
+3920 IF outside=1 THEN PRINT "Your ship was caught outside the bunker":PRINT:PRINT "when the solar flare occured and so was":PRINT "destroyed.":RETURN 
+3930 PRINT "The bunker door was open when the solar":PRINT:PRINT "flare occured and so your ship was":PRINT:PRINT "destroyed."
+3940 RETURN 
+3950 REM 
+3960 REM*****d o o r******
+3970 IF door=1 THEN 4000
+3980 IF y&lt;22 OR y>23 OR x&lt;29 OR x>31 THEN IF screen[30,22]=0 AND screen[30,23]=0 THEN 4000
+3990 RETURN 
+4000 GOSUB 4380:door=door*-1
+4010 IF door=1 THEN fills=143:filla=14 ELSE fills=32:filla=0
+4020 screen[30,22]=filla:screen[30,23]=filla
+4030 PEN 1:LOCATE 30,22:PRINT CHR$(fills);:LOCATE 30,23:PRINT CHR$(fills);
+4040 RETURN 
+4050 REM 
+4060 REM*****s c e n e s e t u p*******
+4070 PEN 1
+4080 FOR i=1 TO 40:screen[i,1]=rock:screen[i,25]=rock:LOCATE i,25:PRINT CHR$(g1);:NEXT i
+4090 FOR j=15 TO 25:screen[1,j]=rock:LOCATE 1,j:PRINT CHR$(g1);:NEXT j
+4100 FOR i=2 TO 25:screen[1,i]=rock:screen[40,i]=rock:LOCATE 40,i:PRINT CHR$(g1);:NEXT i
+4110 FOR i=36 TO 39:FOR j=2 TO 15:screen[i,j]=rock:LOCATE i,j:PRINT CHR$(g1);:NEXT j:NEXT i
+4120 FOR i=27 TO 32:FOR j=6 TO 20:screen[i,j]=rock:LOCATE i,j:PRINT CHR$(g1);:NEXT j:NEXT i
+4130 FOR j=16 TO 18:LOCATE 32,j:PRINT CHR$(32);:screen[32,j]=0:NEXT j
+4140 LOCATE 33,19:PRINT CHR$(g1) + CHR$(g1) + CHR$(g1);:screen[33,19]=rock:screen[34,19]=rock:screen[35,19]=rock:screen[30,22]=0:screen[30,23]=0
+4150 FOR j=8 TO 24:LOCATE 2,j:PRINT CHR$(g1);:screen[2,j]=rock:NEXT j
+4160 LOCATE 16,24:PRINT CHR$(g1);:SCREEN[16,24]=rock
+4170 FOR j=19 TO 24:LOCATE 17,j:PRINT CHR$(g1);:screen[17,j]=rock:NEXT j
+4180 LOCATE 17,18:PRINT CHR$(223);:screen[17,18]=rock
+4190 FOR i=18 TO 26:LOCATE i,20:PRINT CHR$(g1);:screen[i,20]=rock:NEXT i
+4200 LOCATE 18,21:PRINT CHR$(220);:screen[18,21]=rock
+4210 LOCATE 18,19:PRINT CHR$(223);:screen[18,19]=rock
+4220 LOCATE 26,19:PRINT CHR$(222);:screen[26,19]=rock
+4230 LOCATE 15,24:PRINT CHR$(222);:screen[15,24]=rock
+4240 LOCATE 16,23:PRINT CHR$(222);:screen[16,23]=rock
+4250 LOCATE 18,24:PRINT CHR$(223);:screen[18,24]=rock
+4260 LOCATE 30,21:PRINT CHR$(g1);:screen[30,21]=rock
+4270 LOCATE 29,21:PRINT CHR$(221);:screen[29,21]=rock
+4280 LOCATE 29,24:PRINT CHR$(222);:screen[29,24]=rock
+4290 LOCATE 30,24:PRINT CHR$(g1);:screen[30,24]=rock
+4300 LOCATE 6,25:PRINT CHR$(143);:LOCATE 9,25:PRINT CHR$(143);:LOCATE 12,25:PRINT CHR$(143);
+4310 IF door=1 THEN PEN 1:door=-1:GOSUB 3960
+4320 PEN 3
+4330 FOR i=36 TO 39:LOCATE i,3:PRINT " ";:screen[i,3]=0:NEXT i
+4340 LOCATE 36,4:PRINT CHR$(143) + CHR$(233) + CHR$(143);
+4350 FOR i=36 TO 38:screen[i,4]=13:NEXT i:screen [37,4]=12:LOCATE 39,4:PRINT " ";:screen[39,4]=12
+4360 RETURN 
+4370 REM 
+4380 REM*******d e l a y*******
+4390 FOR del=1 TO 50:NEXT del:SOUND 1,200,10,13
+4400 RETURN 
+4410 REM 
+4420 REM****s p a c e b a r****
+4430 LOCATE 1,25:PRINT "Press space bar to continue"
+4440 IF INKEY(47) THEN 4440 ELSE CLS:RETURN 
+4450 REM 
+4460 REM*****s h u t d o w n*****
+4470 engines=-1:yellow=0:orange=0
+4480 RETURN 
+</pre>
+
+</article>
+
+{% include "colour-chart" %}
+{% include "keyboard-codes" %}
+
+	</div>
+</section>
+
+<script>
+window.onCpcLoad = function() {
+	Module._webapi_load_file("../example/dsk/moonbase.dsk")
+}
+</script>
